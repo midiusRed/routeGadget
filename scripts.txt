@@ -1,0 +1,14 @@
+hdd >> server (windows)
+rsync -rltDv --delete --exclude=kartat --exclude=images /cygdrive/i/Flash/My/pet/rg/gadget/ pet:/home/midius/nginx/midius/gadget/
+
+hdd >> server (windows, папка kartat)
+rsync -av --delete /cygdrive/i/orient/my_gadget/kartat/ pet:/home/midius/nginx/midius/gadget/kartat/ 
+
+server >> hdd (windows)
+rsync -av --delete pet:/home/midius/nginx/midius/gadget/ /cygdrive/i/Flash/My/pet/rg/gadget/
+
+server >> hdd (macos)
+rsync -av --delete pet:/home/midius/nginx/midius/gadget/ /Volumes/MacHD/orient/gadget/
+
+hdd >> server (macos)
+rsync -rltDv --delete --exclude=kartat --exclude=images /Volumes/MacHD/orient/gadget/ pet:/home/midius/nginx/midius/gadget/

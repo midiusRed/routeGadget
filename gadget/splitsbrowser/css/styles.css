@@ -1,0 +1,288 @@
+/*
+ *  SplitsBrowser - CSS styles.
+ *  
+ *  Copyright (C) 2000-2013 Dave Ryder, Reinhard Balling, Andris Strazdins,
+ *                          Ed Nash, Luke Woodward
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+@charset "UTF-8";
+ 
+body
+{
+    font: 12px sans-serif;
+}
+
+div.topRowSpacer
+{
+    padding: 0px 30px 0px 30px;
+    min-height: 1px;
+    float: left;
+}
+
+div.otherClassSelector
+{
+    min-width: 100px;
+    border: 1px solid #aaaaaa;
+    padding: 2px;
+    background-color: #eeeeee;
+}
+
+div.otherClassSelector.disabled
+{
+    border: 1px solid #999999;
+    background-color: #f9f9f9;
+    color: #999999;
+}
+
+span.otherClassCombining
+{
+    padding: 0px 10px;
+}
+
+span.otherClassCombining.disabled
+{
+    color: #999999;
+}
+
+div.otherClassList
+{
+    min-width: 100px;
+    padding: 2px;
+    background-color: white;
+    border: 1px solid #aaaaaa;
+}
+
+div.otherClassItem
+{
+    padding: 2px;
+}
+
+div.otherClassItem.selected
+{
+    background-color: #286880;
+    color: white;
+}
+
+span.comparisonSelectorLabel.disabled
+{
+    color: #999999;
+}
+
+label.statisticsSelectorLabel.disabled
+{
+    color: #999999;
+}
+
+div.competitor span.nonfinisher
+{
+    font-style: italic;
+}
+
+span.competitorClassLabel
+{
+    padding-right: 10px;
+}
+
+svg text
+{
+    font: 10px sans-serif;
+}
+
+svg text#sb-text-size-element
+{
+    font-weight: bold;
+}
+
+svg rect.background1
+{
+    fill: #EEEEEE;
+}
+
+svg rect.background2
+{
+    fill: #DDDDDD;
+}
+
+.axis path, .axis line
+{
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+line.controlLine
+{
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+path.graphLine, line.competitorLegendLine
+{
+    fill: none;
+    stroke-width: 2;
+}
+
+text.startLabel
+{
+    text-anchor: end;
+}
+
+text.startLabel.selected
+{
+    font-weight: bold;
+}
+
+path.graphLine.selected, line.competitorLegendLine.selected
+{
+    stroke-width: 6;
+}
+
+text.competitorLabel.selected
+{
+    font-weight: bold;
+}
+
+div.chartPopup
+{
+    border: 1px solid black;
+    pointer-events: none;
+}
+
+div.chartPopupHeader
+{
+    background-color: #fff0a0;
+    padding: 2px;
+    white-space: nowrap;
+}
+
+div.chartPopupTableContainer
+{
+    background-color: #ffffe0;
+    padding: 2px;
+    white-space: nowrap;
+}
+
+div.chartPopup tr.highlighted
+{
+    color: #0000ff;
+}
+
+#competitorList
+{
+    overflow-y: scroll;
+    height: 100%;
+}
+
+#competitorListContainer
+{
+    float: left;
+}
+
+#chart
+{
+    float: left;
+    overflow: hidden;
+}
+
+div.competitor
+{
+    font: 12px sans-serif;
+    padding: 2px;
+}
+
+div.competitor.selected 
+{
+    background-color: #286880;
+    color: white;
+}
+
+div.competitor.disabled
+{
+    color: #999999;
+}
+
+div.competitor.selected.disabled
+{
+    background-color: #9dc3cc;
+    color: white;
+}
+
+#chartTypeSelector, #comparisonSelectorContainer, #runnerSelectorContainer
+{
+    float: left;
+}
+
+#statisticSelector
+{
+    float: right;
+}
+
+#statisticSelector label
+{
+    vertical-align: middle;
+    margin-left: 3px;
+    margin-right: 10px;
+}
+
+#statisticSelector input
+{
+    vertical-align: middle;
+}
+
+#resultsTableContainer
+{
+    padding-top: 10px;
+}
+
+.resultsTable
+{
+    border-spacing: 6px;
+}
+
+span.resultsTableHeader
+{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.resultsTable tbody td.time
+{
+    text-align: right;
+}
+
+div.warningPanel
+{
+    position: absolute;
+    background-color: #EEEE66;
+    border: 5px solid #CCCC44;
+    padding: 10px;
+    color: black;
+    font-weight: bold;
+    max-width: 250px;
+    text-align: center;
+}
+
+/*
+Disable text selection, as it causes unsightly selection during dragging.
+Non-standard CSS here, but that's all we can do.
+*/
+body
+{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

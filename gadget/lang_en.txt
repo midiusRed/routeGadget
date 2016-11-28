@@ -1,0 +1,19 @@
+Instructions:
+<br><B>HOW TO DRAW & SAVE YOUR ROUTE</B>
+<br>1. Check the box "Draw your route", which is located in the top-right corner of the screen.
+<br>2. Choose your class and name from the lists that appear when you check the box.
+<br>3. Locate the starting point (the triangle) on the map. You can move the map around by pressing and holding down the left mouse button somewhere on the map while moving the mouse in the desired direction.
+<br>4. Draw your route from the starting point to the first control by clicking the left mouse button in places where you changed direction. (The program will create a continuous route between these points that you plot.) Your route is drawn in red. The blue line shows the direction to your next control. When you have created a point close to the center of the ring marking the control, the Blue line switches to the next control. If you make a mistake while plotting the points, you can go back one or more points at any time by pressing "undo".
+<br>5. You can also move the map while drawing your route: Press and hold the left mouse button and move the mouse in the desired direction.
+<br>6. Draw your entire route from start to finish.
+<br>7. When you have reached the finish, and you are satisfied with the result, type some short comments in the comment field and press "Save route".
+<br><br>
+<B>WATCHING ROUTES</B>
+<br>- First choose a class, and then choose some competitors from the list. (The competitors that have drawn their routes are displayed with an asterisk *). Finally press "View routes".<br>- Max 10 competitors can be shown at the same time. If you choose more than 10 competitors, only the 10 topmost competitors from the list are shown.
+<br>- You can move the map by holding down the left mouse button and moving the mouse.
+<br><br>
+<B>ANIMATIONS</B>
+<br>- First choose a class, and then choose some competitors from the list (max 10). (Only the competitors that have drawn their routes are displayed here.) Then press "View animation".<br>- Start the animation by pressing the "Start"-button, which will appear at the right side of the screen.
+<br>- If you want, you can apply starting time differences by pressing "Starting times". A dialogue will open, where you can type starting times in minutes for each competitor.
+<p align=right class=credits>Translation by Øystein Jaren Samuelsen</p>####
+Thank you. Your route has been saved successfully. Back to the map page.

@@ -1,0 +1,352 @@
+<html>
+<head></head>
+<body>
+ <link rel="stylesheet" href="leaflet.css" />
+ <script src="leaflet.js"></script>
+ 	<script src="jquery-1.10.2.min.js"></script>
+ 	<script src="multiselect-min.js"></script>
+	<style>
+#map { height: 100%; cursor: crosshair; }
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+	width: 290px;
+	height: 100%;
+	}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+		body{
+			font-family:Arial;
+	font-size:10px;
+	font-style:normal;
+	text-decoration:none;
+	text-align:left;
+		}
+
+		label{
+			font-family:Arial;
+	font-size:10px;
+	font-style:normal;
+	text-decoration:none;
+	text-align:left;
+		}
+
+		.hiddentop{		visibility: hidden;height: 0px;}
+		.visibletop{	visibility: visible;height: 150px;}
+	
+.buttoni {
+	-moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
+	background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
+	background-color:#3d94f6;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0;
+	border:1px solid #FFFFFF;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:12px;
+	font-weight:bold;
+	font-style:normal;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #1570cd;
+
+}
+.buttoni:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
+	background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
+	background-color:#1e62d0;
+
+}
+.buttoni:active {
+background-color:#1e62d0;
+
+}
+.selection{
+Background-color: Highlight;
+Color: HighlightText;
+}
+</style>
+<div id="map"></div>
+ <script>
+ $("#multi").MultiSelect({ css_class_selected: "selection" })
+ //var map = L.map('map').setView([0, 0], 12);
+     var map = L.map('map', {
+        maxZoom: 22,
+        minZoom: 18,
+        crs: L.CRS.Simple
+    }).setView([0, 0], 20);
+   // var southWest = map.unproject([0,2090], 18);
+   // var northEast = map.unproject([1480,0], 18);
+   // map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+var imageUrl = '0.jpg',  imageBounds = [map.unproject([0, 0], 20), map.unproject([1480,2090], 20)];
+
+L.imageOverlay(imageUrl,imageBounds).addTo(map);
+
+
+var info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+
+// method that we will use to update the control based on feature properties passed
+info.update = function (temp) {
+    this._div.innerHTML = temp;
+};
+
+info.addTo(map);
+
+info.update("<div id=\"paneeli\">	<div>		<label><input name=\"piirracheckbox\" id=\"piirracheckbox\" type=\"checkbox\" onClick=\"piirto();\" />piirrä</label>&nbsp;	<label><input name=\"snap\" id=\"snap\" type=\"checkbox\" />Snap on/off</label>	</div>	<div id=\"piirtodiv\" name=\"piirtodiv\" class=\"hiddentop\">		<div>	<select name=\"sarjapiirto\" id=\"sarjapiirto\" style=\"width: 220px;\" onChange=\"sarjavaihtopiirto();\">  <option value=\"0\" selected>Valitse sarja</option>  <option value=\"1\">H21</option>  <option value=\"2\">D21</option>  <option value=\"3\">H40</option></select> <br><select name=\"kilpailija\" id=\"kilpailija\" class=\"multi\" style=\"width: 220px;\">  <option value=\"0\" selected>Valitse kilpailija</option></select> </div>	<div>		<textarea name=\"kommentit\" id=\"kommentit\" style=\"width: 220px; height: 70px;resize: none;\" wrap=\"off\"></textarea>		<br><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 90px;\" type=\"button\"  onClick=\"save();\">Tallenna</button>	</div></div>	<div id=\"valiaikadiv\" name=\"valiaikadiv\" class=\"visibletop\">		<textarea name=\"valiajat\" id=\"valiajat\" style=\"width: 220px; height: 120px;resize: none;\" wrap=\"off\" readonly></textarea>	</div>		<div><select name=\"sarja\" id=\"sarja\" style=\"width: 220px;\" onChange=\"sarjavaihto();\">  <option value=\"0\" selected>Valitse sarja</option>  <option value=\"1\">H21</option>  <option value=\"2\">D21</option>  <option value=\"3\">H40</option></select> </div><div><table><tr><td><div><select name=\"kilp\" id=\"kilp\" style=\"height: 200px; width: 220px;\" multiple></select></div><div><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 130px;\" type=\"button\" onClick=\"loadanim();\">Lataa animaatio</button><label><input name=\"massstartcheckbox\" id=\"massstartcheckbox\" onClick=\"massstart();\" type=\"checkbox\" />Yhteislähtö</label></div><div><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 130px;\" type=\"button\" onClick=\"loadtracks();\">Lataa reitit</button><label><input name=\"rasteittaincheckbox\" id=\"rasteittaincheckbox\" onClick=\"rasteittain();\" type=\"checkbox\" />By&nbsp;control</label></div><div><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 130px;\" type=\"button\" onClick=\"loadcomments();\">Lataa kommentit</button><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 90px;\" type=\"button\" onClick=\"unselect();\">Poista&nbsp;valinnat</button></div></td><td valign=\"top\"><div><label><input name=\"reititcheckbox\" id=\"reititcheckbox\" type=\"checkbox\"  onClick=\"reititonoff();\" />Reitit</label><br><label><input name=\"ratacheckbox\" id=\"ratacheckbox\" type=\"checkbox\" onClick=\"rataonoff();\" />Rata</label><br><label><input name=\"nimetcheckbox\" id=\"nimetcheckbox\" type=\"checkbox\" onClick=\"nimetonoff();\" />Nimet</label><br><br><br><br><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 55px;\" type=\"button\"  onClick=\"startanim();\">Start</button><br><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 55px;\" type=\"button\" onClick=\"stopanim();\">Stop</button><br><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 55px;\" type=\"button\" onClick=\"pauseanim();\">Pause</button><br><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 55px;\" type=\"button\" onClick=\"speedplus();\">Speed+</button><br><button class=\"buttoni\" class=\"buttoni\" style=\"height: 22px; width: 55px;\" type=\"button\" onClick=\"speedminus();\">Speed-</button></div></td></tr></table></div>");
+var group = L.layerGroup().addTo(map);
+
+map.on('click', function(e) { 
+var temp =map.project([e.latlng.lat , e.latlng.lng],20);
+var orig =e.originalEvent;
+   if(orig.target.className.indexOf('leaflet') >-1){
+
+alert("Lat, Lon : " + temp.x + ", " + temp.y+ " "+orig.target.className) 
+}
+
+})
+
+function tempdraw(){
+group.clearLayers();
+var polyline = L.polyline([
+    map.unproject([3, 3], 20),
+    map.unproject([500, 500], 20),
+    map.unproject([200, 1000], 20)
+]);
+
+group.addLayer(polyline)
+
+}
+
+
+// ----------------------------
+
+
+
+	var animrunning=0;
+	var animspeed=0;
+	var animpaused=0;
+	var eventtype=0;
+	
+	function update(sarja){
+
+	$.getJSON("update.php?act=kilp&sarja="+sarja, function(data) {
+		$("#kilp").html('');
+		$.each(data, function(){
+				$.each(this, function(k, v) {
+					$("#kilp").append('<option value="'+ k +'">'+ v +'</option>')
+    
+			});
+		});
+	});
+	
+		$.getJSON("update.php?act=kilp&all=1&sarja="+sarja, function(data) {
+		$("#kilpailija").html('');
+		$("#kilpailija").append('<option value="0" selected>Valitse kilpailija</option>')
+		$.each(data, function(){
+				$.each(this, function(k, v) {
+					$("#kilpailija").append('<option value="'+ k +'">'+ v +'</option>')
+    
+			});
+		});
+	});
+	
+	}
+	
+	function sarjavaihto(){
+		var sarja= $( "#sarja" ).val();
+		if(sarja>0){
+			update(sarja);
+		}else{
+		$("#kilp").html('');
+		}
+	
+	if(eventtype==0 && sarja>0){
+		loadcourse();
+	}
+	}
+	
+		function sarjavaihtopiirto(){
+		var sarja= $( "#sarjapiirto" ).val();
+		if(sarja>0){
+			update(sarja);
+		}else{
+		$("#kilp").html('');
+		}
+	
+	if(eventtype==0 && sarja>0){
+		loadcourse();
+	}
+	}
+	
+	function 	massstart(){
+		alert($( "#massstartcheckbox" ).is(':checked'));
+	}
+	function rasteittain(){
+			alert($( "#rasteittaincheckbox" ).is(':checked'));
+	}
+	function reititonoff(){
+			alert($( "#reititcheckbox" ).is(':checked'));
+	}
+	function rataonoff(){
+			alert($( "#ratacheckbox" ).is(':checked'));
+	}
+	function nimetonoff(){
+			alert($( "#nimetcheckbox" ).is(':checked'));
+	}
+
+
+	function loadanim(){
+
+	var kilplist=$( "#kilp" ).val();
+	var sarja= $( "#sarja" ).val();
+	$.getJSON("update.php?act=anim&sarja="+sarja+"&kilp="+kilplist, function(data) {
+
+		alert("anim "+kilplist+" "+data);
+	});
+	loadsplits();
+	if(eventtype==1 && sarja >0){
+	loadcourses();
+	}
+	
+	}
+	function loadtracks(){
+		var kilplist=$( "#kilp" ).val();
+		var sarja= $( "#sarja" ).val();
+	$.getJSON("update.php?act=reitit&sarja="+sarja+"&kilp="+kilplist, function(data) {
+
+		alert("tracks "+kilplist+" "+data);
+	});
+	loadsplits();
+	
+	if(eventtype==1 && sarja >0){
+	loadcourses();
+	}
+	}
+	
+		function loadsplits(){
+				var kilplist=$( "#kilp" ).val();
+				var sarja= $( "#sarja" ).val();
+	$.getJSON("update.php?act=valiajat&sarja="+sarja+"&kilp="+kilplist, function(data) {
+       
+	   var temptxt='';
+		$.each(data, function(){
+				$.each(this, function(k, v) {
+					temptxt=temptxt+v+"\n"; 
+			});
+		});
+		$("#valiajat").val(temptxt);
+		
+	});
+	}
+	function loadcomments(){
+				var kilplist=$( "#kilp" ).val();
+				var sarja= $( "#sarja" ).val();
+	$.getJSON("update.php?act=kommentit&sarja="+sarja+"&kilp="+kilplist, function(data) {
+       
+	   var temptxt='';
+		$.each(data, function(){
+				$.each(this, function(k, v) {
+					temptxt=temptxt+v+"\n"; 
+			});
+		});
+		$("#valiajat").val(temptxt);
+		
+	});
+	}
+	
+	function loadcourses(){
+				var kilplist=$( "#kilp" ).val();
+				var sarja= $( "#sarja" ).val();
+	$.getJSON("update.php?act=radat&sarja="+sarja+"&kilp="+kilplist, function(data) {
+       alert(data)
+	});
+	}
+	function loadcourse(){
+	var sarja= $( "#sarja" ).val();
+ 
+	$.getJSON("update.php?act=radat&sarja="+sarja, function(data) {
+       alert(""+data)
+	});
+	}
+	function unselect(){
+		$("#kilp").val([]);
+	}
+	function startanim(){
+		animrunning=1;
+		alert(animrunning);
+	}
+	function stopanim(){
+		animrunning=0;
+		alert(animrunning);
+	}
+	function pauseanim(){
+	if(animpaused==0){
+		animpaused=1;
+		}else{
+		animpaused=0;		
+		}
+		alert(animpaused);
+	}
+	function speedplus(){
+		animspeed++;
+		alert(animspeed);
+	}
+	function speedminus(){
+		animspeed=animspeed-1;
+		alert(animspeed);
+	}
+	
+	function piirto(){
+		if($( "#piirracheckbox" ).is(':checked')){
+		
+  $("#valiaikadiv").removeClass("visibletop");
+  $("#valiaikadiv").addClass("hiddentop");
+   $("#piirtodiv").removeClass("hiddentop");
+  $("#piirtodiv").addClass("visibletop");
+		}else{
+
+  $("#valiaikadiv").removeClass("hiddentop");
+  $("#valiaikadiv").addClass("visibletop");
+  $("#piirtodiv").removeClass("visibletop");
+  $("#piirtodiv").addClass("hiddentop");
+
+		}
+	}
+
+
+ </script>
+
+
+</body>
+</html>

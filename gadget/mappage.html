@@ -1,0 +1,3271 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="windows-1251">
+<meta property="og:image" content="http://routegadget.net/rganimation.png" />
+#viewport#
+<title>#title#</title>
+<link rel="stylesheet" href="#httppath#leaflet.css" />
+<style>
+html {
+	height:100%;
+	margin:0;
+}
+#map { height:100%; cursor:crosshair; border-right-width:2px; border-right-color:#000000; }
+
+.hider {
+	margin-right: 0px;
+	padding: 0px 0px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	color: #666;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	}
+.legend {
+    padding: 5px 5px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+	color: #666;
+    background: white;
+    background: rgba(255,255,255,0.8);
+	}
+.info {
+    padding: 0px 0px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+	color: #666;
+    background: white;
+    background: rgba(255,255,255,0.8);
+	width: 100%;
+	height: 100%;
+	}
+.info h4 {
+	margin: 0 0 5px;
+	color: #777;
+}
+.touchbig {
+    font: 26px/28px Arial, Helvetica, sans-serif;
+}
+.animconsole {
+
+    padding: 0px 0px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+	color: red;
+    background: blue;
+    background: rgba(255,255,255,0.8);
+	width: 100%;
+	height: 100%;
+	}
+
+		body{
+			font-family:Arial;
+	font-size:10px;
+	font-style:normal;
+	text-decoration:none;
+	text-align:left;
+	    		height: 100%;
+    		margin: 0;
+	background: #f0f0f0;
+		}
+
+		label{
+			font-family:Arial;
+	font-size:10px;
+	font-style:normal;
+	text-decoration:none;
+	text-align:left;
+		}
+		a{
+	font-family:Arial;
+	font-size:10px;
+		}
+		.hiddentop{		visibility: hidden;height: 0px;}
+		.visibletop{	visibility: visible;height: 195px;}
+	
+.buttoni {
+	-moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
+	background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
+	background-color:#3d94f6;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0;
+	border:1px solid #FFFFFF;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:10px;
+	font-weight:bold;
+	font-style:normal;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #1570cd;
+	white-space:nowrap;
+
+}
+.buttoni:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
+	background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
+	background-color:#1e62d0;
+
+}
+.buttoni:active {
+background-color:#1e62d0;
+
+}
+.myselection{
+background-color: Highlight;
+color: HighlightText;
+}
+label {
+white-space:nowrap;
+}
+td { 
+    padding: 0px;
+}
+
+table { 
+    border-spacing: 0px;
+    border-collapse: separate;
+}
+.ctd{
+	text-align:center;
+	font-size:10px;
+
+	}
+.ctd td{
+	padding:2px;
+	}
+.contrnro{
+    z-index:-1;
+	font-family:Arial;
+	font-weight:bold;
+	font-style:normal;
+	text-align:right;
+	color:rgba(200,0,200,0.6);
+	font-size:17px;
+	pointer-events: none;
+	}
+.delay{
+    z-index:-1;
+	font-family:Arial;
+	font-weight:bold;
+	font-style:normal;
+	text-align:right;
+	color:rgba(200,0,0,0.6);	
+	font-size:14px;
+	pointer-events: none;
+	}
+.manualsplit{
+    font-size:11px;
+}	
+.leaflet-container {
+	background: #ffffff;
+	}
+	
+	
+#goffset {
+float: right;
+clear: right;
+width: 280px;
+margin: 0px;
+}
+#animslider {
+float: right;
+clear: right;
+width: 100%;
+margin: 0px;
+}
+</style>
+
+ <script src="#httppath#leaflet.js"></script>
+ 	<script src="#httppath#jquery-1.10.2.min.js"></script>
+ 	<script src="#httppath#multiselect-min.js"></script>
+	<link rel="stylesheet" href="#httppath#jquery-ui.css" />
+<script src="#httppath#jquery-ui-1.9.2.custom.min.js"></script>
+</head>
+
+	<body>
+		<script>
+	function updatesomebuttons(){
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id)) return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+}
+</script>
+
+<div id="rgheader" style="position:absolute;top:0px; width:163px;height:16px; left:45px;Z-index:9999"><a href="reitti.#ext#" target="_top"><img src="#httppath#gadgetjs.gif" height=16 width=163 border=0 title='Back to the event list'></a></div>
+<div id="map" style="position:absolute;top:0px; right:355px;bottom:0px; left:0px;border-right-style:solid;border-width:1px;"></div>
+<div id="animslidercontainer" style="position:absolute; right:355px;bottom: 2px; left:0px;height:10px;visibility:hidden;"><div id="animslider" style="right:0px;bottom: 0px; left:0px;top:0px"></div></div>
+<div id="d1" style="position:absolute;width:218px;height:42px;top:0px; right:134px;white-space:nowrap;">
+<label>
+<input name="piirracheckbox" id="piirracheckbox" type="checkbox" onClick="piirto();" />#term_4#</label> <button class="buttoni" id="undobutton" style="height: 15px; width: 46px;" type="button"  onClick="undo();">#term_5#</button><button class="buttoni" id="plus3button" style="height: 15px; width: 28px;" type="button"  onClick="plusthreedelay();">+3s</button>
+<label><input name="snap" id="snap" type="checkbox" checked/>#term_37#</label><br>
+<a href="../help/manual.html">Как рисовать путь</a>
+<a href="#" onClick="showgpsup();">Загрузить GPS</a></div><div id="d2" style="position:absolute;width:62px;height:42px;top:0px; right:0px;text-align: right; float: right"><select name='clang' title='Select language' onchange='if(this.value !=""){document.location=(""+document.location).replace("&amp;lang=","&amp;lng=").replace("#","")+"&amp;lang="+this.value;}'>
+#languages#
+</select><br><a style="align: left;" href="#" onClick="showAbout();">About&nbsp;</a></div>
+<div id="gpsdiv" class="hiddentop" style="position:absolute;top:42px; right:0px;width:280px; height:140px;z-index:9000">		
+<form action='reitti.#ext#' name='gpsupform' id='gpsupform' method=post enctype='multipart/form-data'>
+<input type=hidden name="lang" value="#lang#">
+<input type=hidden name="id" value="#eventid#">
+<input type=hidden name="act" value="map">
+<input type=hidden name="gps" value="1">
+<select name="sarjagps" id="sarjagps" style="width: 279px;" onChange="sarjagpsvaihto();">  
+</select> 
+<br>
+<select name="kilpailijagps" id="kilpailijagps" style="width: 279px;">  
+<option value="0" selected>#term_2#</option></select><br>
+GPX/XML:<input type="file" name="tracklog" title="GPX or Suunto xml"><br>
+#term_59# <input type="text" name="gpsurl" style="width: 100px;">
+<br>#term_61#:
+<br><select name="calibtype" id="calibtype" style="width: 100px;" title="#term_61#">
+<option value="splits">#term_42#</option>
+<option value="manual">#term_43#</option>
+</select> <button name="uploadbutton" id="uploadbutton" class="buttoni" style="height: 22px; width: 90px;" type="button"  onClick="upload();"> OK &gt;&gt; </button>
+</form>
+</div>
+<div id="gpssavediv" class="hiddentop" style="position:absolute;top:22px; right:0px;width:280px; height:90px;">
+<div id="goffsetview">#term_62#</div><br>
+<div id="goffset"></div>
+<br>
+<textarea name="gpskommentit" id="gpskommentit" style="width: 279px; height: 40px;resize: none;">#term_3#</textarea><br>
+<button name="gpssavebutton" id="gpssavebutton" class="buttoni"  style="height: 22px; width: 90px;" type="button"  onClick="savegpstrack();">#term_26#</button>
+<br>
+
+</div>
+<div id="piirtodiv" class="hiddentop" style="position:absolute;top:42px; right:0px;width:350px; height:90px;z-index:9000;">
+<select name="sarjapiirto" id="sarjapiirto" style="width: 344px;" onChange="sarjavaihtopiirto();">
+<option value="0" selected>#term_1#</option>  
+</select> 
+<br>
+<select name="kilpailija" id="kilpailija" class="multi" style="width: 344px;" onChange="kilpailijavaihtopiirto();">
+<option value="0" selected>#term_2#</option></select>
+#term_3#
+<textarea name="kommentit" id="kommentit" style="width:340px; height:47px; resize:none;"></textarea><br>
+<button name="savebutton" id="savebutton" class="buttoni"  style="height: 22px; width: 90px;" type="button"  onClick="savetrack();">#term_26#</button>
+<div id="controlInfo" style="padding-top:10px"></div>
+</div>	
+<div id="valiaikadiv" class="visibletop" style="position:absolute;top:42px; right:0px;width:350px; height:90px;">
+<div  id="valiajat" style="float: left;width: 350px; height: 175px;resize: none;z-index:-1;overflow: auto;"></div>
+</div>
+<select name="sarja" id="sarja" style="position:absolute;top:162px; right:87px;width:265px; height:20px;" onChange="sarjavaihto();">
+<option value="0" selected>#term_1#</option>  
+</select> 
+
+
+<select name="kilp" id="kilp" style="position:absolute;top:182px;right:87px;width:265px;bottom:66px;" multiple="multiple"></select>
+
+<div id="d3" style="position:absolute;bottom:0px; right:0px;width:88px;	background: #f0f0f0;">
+<label><input name="showroutes" id="showroutes" onClick="toggleroutes();" type="checkbox" checked/>#term_7#</label>
+<br><label><input name="dimmap" id="dimmap" onClick="dimmap();" type="checkbox"/>#term_48#</label>
+<div id="themediv" style="margin-top: 4px;margin-bottom: 4px;border-top-style:solid;border-top-width:1px;	background: #f0f0f0;border-bottom-style:solid;border-bottom-width:1px;">
+<b>&nbsp;&nbsp;&nbsp;#term_44#</b><br>
+<label><input name="themetyperadio" id="showroutes" onClick="setthemetype(0);" type="radio" checked/>#term_45#</label>
+<br>
+<label><input name="themetyperadio" id="showroutes" onClick="setthemetype(1);" type="radio" />#term_46#</label>
+<br>
+<label><input name="themetyperadio" id="showroutes" onClick="setthemetype(2);" type="radio" />#term_47#</label>
+<br>
+<select style="height: 22px; width: 88px;" id="themeleg" onChange="setdisplayleg();">
+</select>
+</div>
+<div id="animdiv" style="visibility: hidden;">
+<b>&nbsp;#term_49#</b><br>
+<button class="buttoni" style="height:22px; width:88px;" type="button"  onClick="startanim();">#term_17#</button>
+<br>
+<button class="buttoni"  style="height:22px; width:88px;" type="button" onClick="stopanim();">#term_18#</button>
+<br>
+<button class="buttoni"  style="height:22px; width:88px;" type="button" onClick="pauseanim();">#term_41#</button>
+<br>
+<button class="buttoni"  style="height:30px; width:88px;" type="button" onClick="speedplus();">#term_19#</button>
+<br>
+<button class="buttoni"  style="height:30px; width:88px;" type="button" onClick="speedminus();">#term_20#</button>
+<br><a href="#" onClick="animlink()">AnimLink</a>
+</div></div>
+<div id="d4" style="position:absolute;bottom:0px; right:127px;width:225px;height: 66px;vertical-align:top;white-space:nowrap;">
+<button class="buttoni"  style="height: 22px; width: 130px;" type="button" onClick="loadanim();">#term_12#</button><label>
+<!--<input name="massstartcheckbox" id="massstartcheckbox" onClick="massstart();" type="checkbox" checked/>#term_35#</label> -->
+<select style="height:22px; width:126px;" id="animationtype" onChange="setanimtype();"><option value="0">#term_35#</option></select>
+<br><button class="buttoni"  style="height: 22px; width: 130px;" type="button" onClick="loadtracks();">#term_13#</button>
+
+<!--<label><input name="rasteittaincheckbox" id="rasteittaincheckbox" onClick="rasteittain();" type="checkbox" />By&nbsp;control</label> -->
+<br><button class="buttoni"  style="height: 22px; width: 130px;" type="button" onClick="loadcomments();">#term_14#</button>
+<button class="buttoni"  style="height: 22px; width: 110px;" type="button" onClick="unselect();">#term_15#</button>
+</div>
+<img id="startanimstart" src="#httppath#startanim.png" onClick="startstartanim();" style="position: absolute;top: 50%;left: 50%;width: 200px;height: 100px;margin-top: -50px;margin-left: -100px; visibility: hidden;z-index:99998;">
+<div id="sharediv" style="position: absolute;top: 50%;left: 50%;width: 200px;height: 100px;margin-top: -2000px;margin-left: -60px; visibility: hidden;z-index:99999;vertical-align:top;white-space:nowrap;"><table><tr><td style="vertical-align: top;"><a href="https://twitter.com/share" class="twitter-share-button"  data-dnt="true"  data-count="none">Tweet</a></td><td style="vertical-align: top;"><div id="fb-root"></div></td><td style="vertical-align: top;"><div id="fbshare" class="fb-share-button" data-layout="button"></div></div></td></tr></table>
+
+</div>
+<img id="hiderbutton" src="#httppath#hidebutton.png" onClick="hiderighttoggle();" style="position:absolute;top:48%; right:351px;width:22px;height:44px;">
+<script>
+
+// limit how many routes/animations are shown at the same time
+var kilpmax= 50;
+startanimloaded=false;
+
+var zip='#zip#';
+
+if(zip ==1){
+//$("#d1").css("visibility","hidden");
+$("#d1").html("<i>This event is closed.</i>");
+}
+
+ function startstartanim(){
+ if(startanimloaded){
+$("#startanimstart").css("visibility","hidden");
+$("#sharediv").css("visibility","hidden");
+$("#sharediv").css("margin-top","-2000px");
+
+
+startanim(startanimtime)
+ 
+}
+ }
+  function animlink(){
+    var url = window.location.href.substring(0, window.location.href.indexOf('?')); 
+	url=url+'?act=map&id='+eventid+'&cID='+$( "#sarja" ).val()+'&aID='+$( "#kilp" ).val()+'&afrom='+$( "#animationtype" ).val()+'&atype='+animtype+'&atime='+animtime+'&aspeed='+animstep+'&zoom='+map.getZoom();
+if($( "#dimmap" ).is(':checked')){
+url=url+'&dim=1';
+}else{
+url=url+'&dim=0';
+}
+    window.location=url;
+ }
+ 
+ 
+ // start with course tracks
+
+ var startupclass=''+GetUrlValue('cID');
+ 
+ var startupathletes=''+GetUrlValue('pID');
+ while(startupathletes.indexOf('%2C')>-1){
+	startupathletes=startupathletes.split('%2C').join(',');
+ }
+ if(startupclass > 0){
+ 
+}else{
+startupclass='';
+}
+if(!isNaN(startupathletes) || startupathletes.indexOf(',') >0){
+}else{
+startupathletes='';
+}
+
+// start with animation
+
+var startanimathletes=''+GetUrlValue('aID');
+startanimathletes=startanimathletes.replace('%2A','*');
+startanimathletes=startanimathletes.split('%2C').join(',');
+
+
+if(!isNaN(startanimathletes) || startanimathletes.indexOf(',') >0 || startanimathletes=='*' || startanimathletes=='all'){
+$("#startanimstart").css("visibility","visible");
+$("#sharediv").css("visibility","visible");
+$("#sharediv").css("margin-top", "50px");
+}else{
+startanimathletes='';
+}
+var startanimtime=1*GetUrlValue('atime');
+var startfrom=1*GetUrlValue('afrom');
+var startanimspeed=1*GetUrlValue('aspeed');
+var follow=false;
+
+var startanimend=''+GetUrlValue('aduration');
+
+if(isNaN(startanimend)){
+startanimend=0;
+}else{
+startanimend=1*startanimtime+60*startanimend; // 
+}
+
+var focusrunner=GetUrlValue('focusid');
+if(isNaN(focusrunner)){
+focusrunner=0;
+}
+
+//
+
+ $("#goffset" ).slider({
+orientation: "horizontal",
+range: "min",
+min: -120,
+max: 120,
+value: 0,
+slide: goffsetchanged,
+change: goffsetchanged,
+stop: function( event, ui ) {}
+});
+$( "#goffset" ).on( "slidestop", function( event, ui ) {
+var offset=$("#goffset" ).slider( "value" );
+$( "#goffset" ).slider( "option", "min", offset-120 );
+$( "#goffset" ).slider( "option", "max", offset*1+120 );
+} );
+
+
+ $("#animslider" ).slider({
+orientation: "horizontal",
+range: "min",
+min: 0,
+max: 1200,
+value: 0,
+slide:animsliderchanged,
+change: animsliderchanged,
+stop: function( event, ui ) {}
+});
+$( "#animslider" ).on( "slidestop", function( event, ui ) {
+animtime=$("#animslider" ).slider( "value" );
+
+} );
+$("#aminslider").css("visibility", "hidden");
+function animsliderchanged(){
+	if(Math.abs(animtime -$( "#animslider" ).slider( "option", "value" )) > 5){
+		animtime=$("#animslider" ).slider( "value" );
+	}
+}
+
+var displayleg=0;
+function setdisplayleg(){
+	displayleg=$( "#themeleg" ).val();
+	loadtracks();
+}
+var eventtype=#eventtype#;
+var eventid=#eventid#;
+var themetype=0;
+var rasticount=0;
+var hideright=false;
+var touchmode=#touchmode#;
+var GPSDATA='#GPSDATA#';
+var GPSSPLITS='#GPSSPLITS#';
+var GPSMODE='#GPSMODE#';
+GPSMODE=1*GPSMODE;
+var gpssarja='#GPSRATA#';
+gpsathlete=1*'#GPSATHLETE#';
+gpssarja=1*gpssarja;
+var GPSCLASS='#GPSCLASS#';
+var GPSpolyline ;
+var isEventChoice = '#eventmode#' == '1'; //соревнования типа выбор
+
+var mapidentifier='';
+
+if(eventid <1){
+mapidentifier = new Date().getTime();
+mapidentifier='?'+mapidentifier;
+}
+var myAttribution='';// add attribution if any
+
+var attributionstate=true;
+if(myAttribution == ''){
+attributionstate=false;
+}
+ //var map = L.map('map').setView([0, 0], 12);
+     var map = L.map('map', {
+        maxZoom: 22,
+        minZoom: 18,
+        crs: L.CRS.Simple,
+		attributionControl: attributionstate
+    }).setView([0, 0], 20);
+   // var southWest = map.unproject([0,2090], 18);
+   // var northEast = map.unproject([1480,0], 18);
+   // map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+var imageUrl = '#httppath#kartat/#mapid#.jpg'+mapidentifier,  imageBounds = [map.unproject([0, 0], 20), map.unproject([#mapwidth#,#mapheight#], 20)];
+
+var bgmap=L.imageOverlay(imageUrl,imageBounds,{attribution: myAttribution}).addTo(map);
+map.setView(map.unproject([#mapwidth#/2, #mapheight#/2], 20), 20);
+
+var hider = L.control();
+
+hider.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'hider');
+    this.update();
+    return this._div;
+};
+
+hider.update = function (temp) {
+    this._div.innerHTML = temp;
+};
+
+var gpseditx=[];
+var gpsedity=[];
+var gpsedit=[];
+var gpsox=[];
+var gpsoy=[];
+var gpsmarkers=[];
+
+var gpsediting=false;
+
+	var gpsicon = L.icon({
+    iconUrl: '#httppath#images/bluedot.png',
+    iconSize:     [7, 7], 
+    iconAnchor:   [4, 4]
+});
+
+	var redicon = L.icon({
+    iconUrl: '#httppath#images/reddot.png',
+    iconSize:     [7, 7], 
+    iconAnchor:   [4, 4]
+});
+
+
+function gpsmarkerhandler(x,y){
+
+var latlon=GPSpolyline.getLatLngs()
+var nearest=0;
+var tmppoint1;
+var disttotrack=999;
+var tmppoint2=map.project(latlon[nearest],20);
+for(var i=1;i<latlon.length;i++){
+	var tmppoint1=map.project(latlon[i],20);
+	if((tmppoint1.x -x)*(tmppoint1.x -x)+(tmppoint1.y-y)*(tmppoint1.y-y)< (tmppoint2.x -x)*(tmppoint2.x -x)+(tmppoint2.y-y)*(tmppoint2.y-y)){
+		nearest=i;
+		tmppoint2=map.project(latlon[nearest],20);
+		disttotrack=(tmppoint1.x -x)*(tmppoint1.x -x)+(tmppoint1.y-y)*(tmppoint1.y-y);
+	}
+}
+var j=nearest;
+var nearestblue=0;
+var ltlnearest=gpsmarkers[nearestblue].getLatLng();
+var tmppoint3=map.project(ltlnearest,20);
+var dist=99999;
+for(var i=0;i<gpsmarkers.length;i++){
+if(gpsmarkers[i] != null){
+var ltl=gpsmarkers[i].getLatLng();
+tmppoint1=map.project(ltl,20);
+	if((tmppoint1.x -x)*(tmppoint1.x -x)+(tmppoint1.y-y)*(tmppoint1.y-y)< (tmppoint3.x -x)*(tmppoint3.x -x)+(tmppoint3.y-y)*(tmppoint3.y-y)){
+nearestblue=i;
+ltlnearest=gpsmarkers[nearestblue].getLatLng();
+tmppoint3=map.project(ltlnearest,20);	
+dist=(tmppoint1.x -x)*(tmppoint1.x -x)+(tmppoint1.y-y)*(tmppoint1.y-y);
+}
+}
+}
+
+	if(dist < 80){
+
+	if(map.hasLayer(gpsmarkers[nearestblue])){
+	map.removeLayer(gpsmarkers[nearestblue]);
+	
+	gpsmarkers[nearestblue]=null;
+	gpsedit[nearestblue]=null;
+	
+	}
+
+	}else{
+if(disttotrack < 80){
+i=gpsedit.length;
+	gpsmarkers[i]=L.marker(	map.unproject([tmppoint2.x, tmppoint2.y], 20), {className: 'c'+i, icon: gpsicon, draggable: true,zIndexOffset:2000});
+	gpsmarkers[i].addTo(map);
+
+	gpsmarkers[i].on('dragend', function(e) {
+updategpstrack(e,i);
+});
+	gpsmarkers[i].on('drag', function(e) {
+updategpstrack(e,i);
+});
+	gpsmarkers[i].on('contextmenu', function(e) {
+ var temp=map.project([e.latlng.lat , e.latlng.lng],20);
+gpsmarkerhandler(temp.x,temp.y);
+});
+	gpsedit[i]=j;	
+}
+}
+tweakgpstrack();
+}
+
+function tweakgpstrack(){
+
+
+var eb=[];
+var sorted=[];
+for (var i=0;i<gpsedit.length;i++){
+eb[''+gpsedit[i]]=i;
+sorted[i]=gpsedit[i];
+}
+sorted.sort(function(a,b){return a - b})
+var j=0;var eblue=[];
+for (var i=0;i<sorted.length;i++){
+if(sorted[i] != null){
+eblue[j]=eb[''+sorted[i]];
+j++;
+}
+}
+
+map.removeLayer(GPSpolyline);
+//GPSpolyline = new L.polyline(map.unproject([gpsox[0], gpsoy[0]]), {color: '#FF0000', weight: 3, opacity: 0.8});
+var latlons=[];
+var pi=Math.PI;
+for(blue=1;blue<eblue.length;blue++){
+
+
+var ll=gpsmarkers[eblue[blue-1]].getLatLng();
+var tmppoint=map.project(ll,20);
+           bx1=tmppoint.x;
+		   by1=tmppoint.y;
+		   
+ll=gpsmarkers[eblue[blue]].getLatLng();
+tmppoint=map.project(ll,20);
+           bx2=tmppoint.x;
+		   by2=tmppoint.y;
+		   
+//           if editblue== edilkm-1:
+//             bx1=mx-xoffset*zoomscale-posx
+//             by1=my-yoffset*zoomscale-posy
+//           if editblue== edilkm:
+//             bx2=mx-xoffset*zoomscale-posx
+//             by2=my-yoffset*zoomscale-posy
+   			
+           edi1=gpsedit[eblue[blue-1]]
+           edi2=gpsedit[eblue[blue]]
+
+           pit1=Math.sqrt((gpsox[edi1]-gpsox[edi2])*(gpsox[edi1]-gpsox[edi2])+(gpsoy[edi2]-gpsoy[edi1])*(gpsoy[edi2]-gpsoy[edi1]))
+           pit2=Math.sqrt((bx2-bx1)*(bx2-bx1)+(by2-by1)*(by2-by1))
+	var si=gpsedit[eblue[blue-1]]
+if(blue==1){si=0;}	
+for (var i=si;i<gpsedit[eblue[blue]] || (blue==eblue.length-1 && i<gpsox.length-1);i++){
+//alert(''+i+' '+'  '+blue+'  '+eblue[blue-1]+'  '+eblue[blue]);
+//GPSpolyline.addLatLng(map.unproject([gpsox[i], gpsoy[i]], 20))
+
+
+
+           pit3=Math.sqrt((gpsox[i]-gpsox[edi1])*(gpsox[i]-gpsox[edi1])+(gpsoy[i]-gpsoy[edi1])*(gpsoy[i]-gpsoy[edi1]));
+           
+           gk1=0
+           gk2=0
+           gk3=0
+
+
+           if (bx2==bx1){
+
+              if (by2>by1){
+                 gk1=pi/2;
+              }else{
+                 gk1=-pi/2;
+				 }
+
+           }else{
+
+
+              if (bx2<bx1){
+                 gk1=Math.atan((by2-by1)/(bx2-bx1))+pi;
+               
+              }else{
+                 gk1=Math.atan((by2-by1)/(bx2-bx1));
+                 }
+		    }
+           if(gpsox[i]==gpsox[edi1]){
+
+              if (gpsoy[i]>gpsoy[edi1]){
+                 gk2=pi/2;	
+              }else{
+                 gk2=-pi/2;		
+				}
+
+           }else{
+
+              if (gpsox[i]<gpsox[edi1]){
+                 gk2=Math.atan((gpsoy[i]-gpsoy[edi1])/(gpsox[i]-gpsox[edi1]))+pi;
+              }else{
+                 gk2=Math.atan((gpsoy[i]-gpsoy[edi1])/(gpsox[i]-gpsox[edi1]));
+			}
+			}
+
+           if (gpsox[edi2]==gpsox[edi1]){
+
+              if (gpsoy[edi2]>gpsoy[edi1]){
+                 gk3=pi/2;
+              }else{
+                 gk3=-pi/2;		
+			}
+	
+           }else{
+
+              if (gpsox[edi2]<gpsox[edi1]){
+                 gk3=Math.atan((gpsoy[edi2]-gpsoy[edi1])/(gpsox[edi2]-gpsox[edi1]))+pi;
+              }else{
+                 gk3=Math.atan((gpsoy[edi2]-gpsoy[edi1])/(gpsox[edi2]-gpsox[edi1]));
+				}
+			}
+           //apuX=(bx1+(Math.cos(gk1+gk2-gk3)*pit3*pit2/pit1))
+           //apuY=(by1+(Math.sin(gk1+gk2-gk3)*pit3*pit2/pit1))
+
+		   
+
+latlons[latlons.length]=map.unproject([(bx1+(Math.cos(gk1+gk2-gk3)*pit3*pit2/pit1)), (by1+(Math.sin(gk1+gk2-gk3)*pit3*pit2/pit1))],20);
+}
+
+}
+GPSpolyline = new L.polyline(latlons, {color: '#FF0000', weight: 3, opacity: 0.8});
+//map.removeLayer(GPSpolyline);
+map.addLayer(GPSpolyline);
+
+}
+
+if (GPSDATA != ''){
+
+loadcourse(gpssarja);
+
+// manual mode
+if(GPSMODE ==1){
+		var tmp =GPSDATA.split(';');
+				for (i = 0; i < tmp.length; i++) {
+				if (tmp[i].length >2){
+				    var fields=tmp[i].split(',');
+					// line
+					gpsox[i]=1*fields[1];
+					gpsoy[i]=1*fields[2];
+
+					if(i == 0){
+						GPSpolyline = new L.polyline([L.latLng(map.unproject([1*fields[1], 1*fields[2]], 20))], {color: '#FF0000', weight: 3, opacity: 0.8});
+					}else{
+						GPSpolyline.addLatLng(map.unproject([1*fields[1], 1*fields[2]], 20))
+					}
+					}
+					}
+					map.addLayer(GPSpolyline)
+					
+
+
+	gpsmarkers[0]=L.marker(	map.unproject([gpsox[0], gpsoy[0]], 20), {className: 'c'+0, icon: gpsicon, draggable: true,zIndexOffset:2000});
+	gpsmarkers[0].addTo(map);
+
+gpsmarkers[0].on('dragend', function(e) {
+updategpstrack(e,0);
+});
+	gpsmarkers[0].on('drag', function(e) {
+updategpstrack(e,0);
+});
+
+gpsmarkers[0].on('contextmenu', function(e) {
+ var temp=map.project([e.latlng.lat , e.latlng.lng],20);
+gpsmarkerhandler(temp.x,temp.y);
+});
+	gpsedit[0]=0;	
+	
+	gpsmarkers[1]=L.marker(	map.unproject([gpsox[Math.floor(gpsox.length/2)], gpsoy[Math.floor(gpsoy.length/2)]], 20), {className: 'c'+1,icon: gpsicon, draggable: true,zIndexOffset:2000});
+	gpsmarkers[1].addTo(map);
+
+	gpsmarkers[1].on('dragend', function(e) {
+updategpstrack(e,1);
+});
+	gpsmarkers[1].on('drag', function(e) {
+updategpstrack(e,1);
+});
+gpsmarkers[1].on('contextmenu', function(e) {
+ var temp=map.project([e.latlng.lat , e.latlng.lng],20);
+gpsmarkerhandler(temp.x,temp.y);
+});
+	gpsedit[1]=Math.floor(gpsox.length/2);
+	
+	gpsmarkers[2]=L.marker(	map.unproject([gpsox[gpsoy.length-1], gpsoy[gpsoy.length-1]], 20), {className: 'c'+2, icon: gpsicon, draggable: true,zIndexOffset:2000});
+	gpsmarkers[2].addTo(map);
+
+	gpsmarkers[2].on('dragend', function(e) {
+updategpstrack(e,2);
+});
+	gpsmarkers[2].on('drag', function(e) {
+updategpstrack(e,2);
+});
+gpsmarkers[2].on('contextmenu', function(e) {
+ var temp=map.project([e.latlng.lat , e.latlng.lng],20);
+gpsmarkerhandler(temp.x,temp.y);
+});
+	gpsedit[2]=Math.floor(gpsox.length-1);							
+}
+
+// splits based mode
+if(GPSMODE ==0){
+splitbasedgpstrack(0);		
+	
+}
+
+$("#gpssavediv").css("visibility","visible");
+$("#valiaikadiv").css("visibility","hidden");
+  $("#d1").css("visibility", "hidden");	  
+     $("#d2").css("visibility", "hidden");	
+			
+gpsediting=true;
+			}
+			
+
+function goffsetchanged(){
+var offset=$("#goffset" ).slider( "value" );
+var offsett=offset;
+var offsetminus='';
+if(offsett<0){
+offsett=-offsett;offsetminus='- ';
+}
+var offsetmin=Math.floor(offsett/60);
+var offsetsec=(offsett-Math.floor(offsett/60)*60);
+
+if(offsetsec<10){offsetsec='0'+offsetsec;}
+
+$("#goffsetview").html("#term_50#"+"<br><br><b>#term_51#: "+offsetminus+''+offsetmin+" min "+offsetsec+" #term_52#.  ("+offset+" #term_52#)</b>");
+splitbasedgpstrack(Math.floor(1*offset));
+
+
+}
+			
+function splitbasedgpstrack(offset){
+offset=1*offset;
+
+for(var i =0;i<gpsmarkers.length;i++){
+	if(map.hasLayer(gpsmarkers[i])){
+	map.removeLayer(gpsmarkers[i]);
+	}
+}
+	gpsmarkers=[];
+	gpsedit=[];
+gpsox=[];
+gpsoy=[];
+
+	if(map.hasLayer(GPSpolyline)){
+	map.removeLayer(GPSpolyline);
+	}
+	
+		var tmp =GPSDATA.split(';');
+		var pretime=0;
+				for (var i = 0; i < tmp.length; i++) {
+				if (tmp[i].length >2){
+				    var fields=tmp[i].split(',');
+					// line
+					gpsox[i]=1*fields[1];
+					gpsoy[i]=1*fields[2];
+					if(pretime>0 && 1*fields[0] != pretime+1){
+					//alert(""+pretime+" "+(fields[0]-1));
+					}
+					pretime=1*fields[0];
+					if(i == 0){
+						GPSpolyline = new L.polyline([L.latLng(map.unproject([1*fields[1], 1*fields[2]], 20))], {color: '#FF0000', weight: 3, opacity: 0.8});
+					}else{
+						GPSpolyline.addLatLng(map.unproject([1*fields[1], 1*fields[2]], 20))
+					}
+					}
+					}
+					map.addLayer(GPSpolyline);
+					
+var tmp =GPSSPLITS.split('|');
+		
+		// splits
+var gsplits=tmp[0].split(';');
+var gcontrols=tmp[1].split('N');
+
+for (var i = 0; i < gcontrols.length; i++) {
+
+if(gcontrols[i].length >2 ){
+var coords=gcontrols[i].split(';');
+
+if(i ==0){
+	gpsmarkers[i]=L.marker(	map.unproject([1*coords[0], -1*coords[1]], 20), {className: 'c'+i, icon: gpsicon, draggable: true,zIndexOffset:2000});
+	gpsmarkers[i].addTo(map);
+
+gpsmarkers[i].on('dragend', function(e) {
+updategpstrack(e,i);
+});
+	gpsmarkers[i].on('drag', function(e) {
+updategpstrack(e,i);
+});
+
+gpsmarkers[i].on('contextmenu', function(e) {
+ var temp=map.project([e.latlng.lat , e.latlng.lng],20);
+gpsmarkerhandler(temp.x,temp.y);
+});
+
+	//gpsedit[i]=0;
+	gpsedit[0]=1*offset;
+	if(gpsedit[0] < 0){gpsedit[0]=0;}
+}
+
+if(i < gsplits.length && i>0){
+if(1*gsplits[i-1]+offset < gpsox.length && 1*gsplits[i-1]+offset >-1){
+
+	gpsmarkers[i]=L.marker(	map.unproject([1*coords[0], -1*coords[1]], 20), {className: 'c'+i, icon: gpsicon, draggable: true,zIndexOffset:2000});
+	gpsmarkers[i].addTo(map);
+
+gpsmarkers[i].on('dragend', function(e) {
+updategpstrack(e,i);
+});
+	gpsmarkers[i].on('drag', function(e) {
+updategpstrack(e,i);
+});
+
+gpsmarkers[i].on('contextmenu', function(e) {
+ var temp=map.project([e.latlng.lat , e.latlng.lng],20);
+gpsmarkerhandler(temp.x,temp.y);
+});
+
+
+if(i==0){
+
+}else{
+if(i==gcontrols.length-2){
+gpsedit[i]=1*gsplits[i-1]+1*offset;
+if(gpsedit[i] > gpsox.length-1){
+	gpsedit[i]=gpsox.length-1;	
+	}
+
+	}else{
+if(1*gsplits[i-1]+offset < gpsox.length-1){
+gpsedit[i]=1*gsplits[i-1]+1*offset;
+}
+}
+}
+}
+}
+}
+}
+	tweakgpstrack();			
+			
+
+}
+var legendinnerhtml='';
+function updategpstrack(e,foo){
+//		var orig =e.originalEvent;
+ //  if(orig.target.className
+//  var drcoords = e.target.getLatLng();
+//  temp=map.project([drcoords.lat ,drcoords.lng],20);
+//alert(''+temp.x+' '+temp.y+' '+foo);
+ 
+tweakgpstrack();
+}
+					
+var legend = L.control();
+
+legend.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'legend');
+    this.update();
+    return this._div;
+};
+
+legend.update = function (temp) {
+    this._div.innerHTML = '<p style="text-align:right;margin-top: 0px;"><a href=# onClick="legend.hide()"><img style="text-align:right" src="#httppath#right.png" border="0"></a></p>'+temp;
+};
+
+legend.hide = function () {
+	legendinnerhtml=this._div.innerHTML;
+    this._div.innerHTML = '<a href=# style="text-align:right" onClick="legend.unhide()"><img src="#httppath#left.png" border="0"></a>';
+};
+
+legend.unhide = function () {
+	this._div.innerHTML=legendinnerhtml;
+};
+legend.addTo(map)
+
+var eventnotes="#eventnotes#";
+if (GPSDATA != ''){
+// no notes now
+legend.update('');
+}else{
+legend.update(eventnotes);
+}
+//setTimeout(function(){updatesomebuttons()},2000);
+var info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+
+// method that we will use to update the control based on feature properties passed
+info.update = function (temp) {
+    this._div.innerHTML = temp;
+};
+
+
+var animconsole = L.control({position:'bottomleft'});
+
+animconsole.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'animconsole'); // create a div with a class "animconsole" - not used yet
+    this.update();
+    return this._div;
+};
+var animdata;
+var animaatio=[];
+var legtooltip=[];
+
+var animtype=1*GetUrlValue('atype');// 0=masstart,-1=interval, -2=legbyleg
+
+if(animtype <0){
+$("#animationtype").find('option[value="'+animtype+'"]').attr("selected",true);
+}
+
+var splittime=[];
+
+var reittidata='';
+var hidetracks=[];
+
+function hiderighttoggle(){
+
+if( hideright){
+ hideright=false;
+ $("#d1").css("visibility", "visible");
+  $("#d2").css("visibility", "visible");
+   $("#d3").css("visibility", "visible");
+    $("#d4").css("visibility", "visible");
+		if($( "#piirracheckbox" ).is(':checked')){
+    $("#piirtodiv").css("visibility", "visible");
+	}else{
+	 $("#valiaikadiv").css("visibility", "visible");
+	 }
+	 	 $("#sarja").css("visibility", "visible");
+		 	 $("#kilp").css("visibility", "visible");
+ 
+ $("#map").css("right", "355px");
+ $("#hiderbutton").css("right", "355px");
+ 
+
+ }else{
+ hideright=true;
+ $("#d1").css("visibility", "hidden");
+  $("#d2").css("visibility", "hidden");
+   $("#d3").css("visibility", "hidden");
+   $("#d4").css("visibility", "hidden");
+    $("#piirtodiv").css("visibility", "hidden");
+	 $("#valiaikadiv").css("visibility", "hidden");
+	 	 $("#sarja").css("visibility", "hidden");
+		 	 $("#kilp").css("visibility", "hidden");
+ $("#map").css("right", "0px");
+ $("#hiderbutton").css("right", "0px");
+ 
+ }
+ map.invalidateSize();
+}
+
+function toggleroutes(){
+	if(!$("#showroutes").is(':checked')){
+		hidetracks=group.getLayers();
+		group.clearLayers();
+	}else{
+		group.clearLayers();
+		$.each(hidetracks, function( index, value ) {
+			group.addLayer(value);
+		});
+	}
+}
+function setthemetype(ttype){
+	themetype=ttype;
+	loadtracks();
+}
+function dimmap(){
+	if ($("#dimmap").is(':checked')) {
+		bgmap.setOpacity(0.6);
+	} else {
+		bgmap.setOpacity(1.0);
+	}
+}
+
+var drawingicon = L.icon({
+    iconUrl: '#httppath#images/crosshair.png',
+    iconSize:     [101, 101], 
+    iconAnchor:   [50, 50]
+});
+var drawingmarker;
+var drawingmarkeradded=false;
+
+var animsplit=[];
+
+animconsole.update = function (temp) {
+if(nul=animdata){
+var bo=map.getPixelBounds().getSize();
+var w=(bo.x-30);
+var out='';
+var max;
+var max2;
+var min;
+var legendHTML='';		
+animaatio=[];		
+
+
+var legcount=0;
+$.each(animdata, function(){
+	$.each(this, function(k, v) {
+	legendHTML=legendHTML+'<tr><td><div style=\"background:'+linecolor[animcolorid[1*k]%20]+'; width: 10px; height: 10px;border-radius: 50%;\"></div></td><td><i onMouseOut=\"hilitedot=-1\" onMouseover=\"hilitedot='+k+'\" onClick=\"focusrunner='+k+'\">'+athletenames[''+k]+'</i></td></tr>';
+		var temp = v.split('H');
+		var animsplits=temp[0].split(';');
+		if(legcount < animsplits.length-1)legcount=animsplits.length-1;
+		for(var i =0;i<animsplits.length;i++){
+			animsplit[''+k+'_'+(i+1)]=animsplits[i];
+		}
+		var stimes=temp[1].split(';');
+		starttime[''+k]=1*stimes[1];
+		var h=temp[1].split(';');
+		animaatio[''+k] = temp[2].split('N');
+		 if(null==max || animaatio[''+k].length*3 > max){max=3*animaatio[''+k].length;}
+		 if(null==max2 || animaatio[''+k].length*3 +1*h[1] > max2){max2=3*animaatio[''+k].length+1*h[1];}
+
+		});
+		});
+		legend.update('<table>'+legendHTML+'</table>');
+				 
+    //this._div.innerHTML = ' '+max+' '+max2+ "" ;
+	
+	if($("#animationtype option").length != legcount){
+				$("#animationtype").html('');
+				$("#animationtype").append('<option value="0">#term_35#</option>');
+				$("#animationtype").append('<option value="-1">#term_53#</option>');
+				//$("#animationtype").append('<option value="-2">Leg by leg</option>');
+				for(var i=1;i<legcount;i++){
+				$("#animationtype").append('<option value="'+ i +'">' + "#term_54#".replace('_NUM_', i) + '</option>');
+				}
+				}
+
+				if(startfrom>0){
+				$("#animationtype").find('option[value="'+startfrom+'"]').attr("selected",true);
+				startfrom=-99;
+				}
+				
+				if(1*GetUrlValue('atype') < 0){
+					$("#animationtype").find('option[value="'+(1*GetUrlValue('atype'))+'"]').attr("selected",true);
+				}
+
+				setanimtype();
+		 $("#animdiv").css("visibility", "visible");
+		 if(startanimspeed>0){
+		 follow=true;
+		 if(GetUrlValue('zoom') >0 ){
+		 map.setZoom(1*GetUrlValue('zoom'));
+		 }
+		// startanim(startanimtime);
+		animstep=startanimspeed;
+		$( "#animslider" ).slider( "option", "value", startanimtime);
+		//pauseanim();
+		
+		startanimspeed=0;
+				hideright=false;
+				hiderighttoggle();
+				$("#hiderbutton").css("visibility", "hidden");
+				$("#animdiv").css("visibility", "hidden");
+				startanimloaded=true;
+		//alert(animstep);
+		}
+}
+}
+
+function setanimtype(){
+	stopanim();
+	animtype=1*$("#animationtype").val();
+	maxtime=0;
+	$("#animslider").slider("option", "value", animtime);
+}
+
+animconsole.addTo(map);
+// <br>#eventname#</br>
+var coursegroup = L.layerGroup().addTo(map);
+var group = L.layerGroup().addTo(map);
+var hilitegroup = L.layerGroup().addTo(map);
+var tailgroup = L.layerGroup().addTo(map);
+var animgroup = L.featureGroup().addTo(map);
+var delaymarkergroup = L.layerGroup().addTo(map);
+var hidegroup;
+var infovisible=false;
+function showAbout(){
+var bo=map.getPixelBounds().getSize();
+var about ="<div style=\"text-align: center; align: center;\" align=\"center\"><br><br><br><h4>RouteGadget</h4><br>Ver. 20150203<br><br><br>HTML5 UI implementation for RouteGadget.<br><br><br> Built on <a href=http://jquery.com/>JQuery</a>, <a href=http://jqueryui.com/>JQuery UI</a> and <a title=\"A JS library for interactive maps\" href=\"http://leafletjs.com\">Leaflet</a>.<br><br><a href=http://www.routegadget.net>www.routegadget.net</a><br><br>The latest version currently available is:<br><iframe frameborder=0 width=200 height=40 src=http://www.routegadget.net/latestrgversion.php></iframe>";
+if(!infovisible){
+infovisible=true;
+info.addTo(map);info.update(about);
+setTimeout(function(){info.removeFrom(map);infovisible=false;},15000);
+}
+}
+//(map.on('click', function(e) { 
+//var temp =map.project([e.latlng.lat , e.latlng.lng],20);
+//var orig =e.originalEvent;
+   //if(orig.target.className.indexOf('leaflet') >-1){
+//
+//alert("Lat, Lon : " + temp.x + ", " + temp.y+ " "+orig.target.className) 
+//}
+//
+//});
+
+var mydx=-9999;
+var mydy=-9999;
+var clicktolerance=12;
+var mousestarttime; 
+var starttime=[]; 
+var drawpolyline;
+var drawleg;
+var drawcircle;
+var drawpoints_x=[];
+var drawpoints_y=[];
+var drawcontrol=1;
+var canitbesaved=false;
+var controlCount=0;
+var choiceControlList; //список посещенных кп из ratapisteet
+var choiceCircleList;  //список выделенных кп
+
+map.on('mousedown', function(e) { 
+	mousestarttime = new Date().getTime();
+//	var temp =map.project([e.latlng.lat , e.latlng.lng],20);
+	var orig =e.originalEvent;
+ //  if(orig.target.className.indexOf('leaflet') >-1){
+
+	mydx=orig.clientX;
+	mydy=orig.clientY;
+//}
+});
+
+var prex=-999;
+var prey=-999;
+
+map.on('contextmenu', function(e) {
+	if($("#piirracheckbox" ).is(':checked')){
+		undo(e);//undo(e);
+	}
+	if(gpsediting){
+		var temp=map.project([e.latlng.lat , e.latlng.lng],20);
+		gpsmarkerhandler(temp.x,temp.y);
+	}
+});
+
+map.on('click', function(e) { //mouseup
+	if(drawingmarkeradded==true && touchmode==1){
+		// do nothing, testing will this fix ipad issues
+	}else{
+		myclick(e,0);
+	}
+});
+
+function undo(){
+	canitbesaved = false;
+//$("#savebutton").css("visibility", "hidden");
+ //$("#savebutton").attr("disabled", true);
+	if(drawpoints_x.length > 1){
+		var removed_x = drawpoints_x.pop();
+		var removed_y = drawpoints_y.pop();
+		var lineList = drawpolyline.getLatLngs();
+		lineList.pop();
+		drawpolyline.setLatLngs(lineList);
+		if (isEventChoice) {
+			if (choiceControlList.length > 0) {
+				var pair2 = ratapisteet[choiceControlList[choiceControlList.length - 1]].split(';');
+				if (removed_x == pair2[0] && removed_y == -pair2[1]) {
+					choiceControlList.pop();
+					drawcontrol--;
+					drawChoiceCircles();
+				}
+			}
+		} else {
+			pair2 = ratapisteet[drawcontrol - 1].split(';');
+			if (removed_x == pair2[0] && removed_y == -pair2[1]) {
+				drawcontrol--;
+				pair2 = ratapisteet[drawcontrol].split(';');
+				map.removeLayer(drawcircle);
+				drawcircle = L.circle(map.unproject([1 * pair2[0], -1 * pair2[1]], 20), 2.1, { color:'#0000ff', fill:false, weight:16, opacity:0.25 });
+				map.addLayer(drawcircle);
+			}
+			pair2 = ratapisteet[drawcontrol].split(';');
+
+			map.removeLayer(drawleg);
+			drawleg = L.polyline([
+				map.unproject([1 * drawpoints_x[drawpoints_x.length - 1], 1 * drawpoints_y[drawpoints_y.length - 1]], 20),
+				map.unproject([1 * pair2[0], -1 * pair2[1]], 20)
+			], { color:'#0000ff', weight:8, opacity:0.25 });
+			map.addLayer(drawleg);
+		}
+
+		syncDrawControlInfo();
+ 		updatedelaymarkers();
+ 
+		if(drawingmarkeradded==true && touchmode==1){
+			map.removeLayer(drawingmarker);					
+
+			drawingmarker=L.marker(	map.unproject([drawpoints_x[drawpoints_x.length-1], drawpoints_y[drawpoints_y.length-1]], 20), {icon: drawingicon, draggable: true,zIndexOffset:2000}).addTo(map);
+			drawingmarker.addTo(map);
+
+			drawingmarker.on('dragend', function(e) {
+				mousestarttime = new Date().getTime();
+				myclick(e,2);
+			});
+			drawingmarker.on('drag', function(e) {
+				mousestarttime = new Date().getTime();
+				myclick(e,1);
+			});
+		}
+ 
+		//drawingmarker.move(map.unproject([[1*drawpoints_x[drawpoints_x.length-1],1*drawpoints_y[drawpoints_y.length-1]]], 20));
+	}
+}
+
+function myclick(e,drag) {
+	var elapsed = new Date().getTime() - mousestarttime;
+	var temp;
+	if(drag==0){
+ 		temp=map.project([e.latlng.lat , e.latlng.lng],20);
+ 	}else{
+  		var drcoords = getTarget(e).getLatLng();
+  		temp=map.project([drcoords.lat ,drcoords.lng],20);
+ 	}
+	var orig =e.originalEvent;
+
+	var tester=0;
+	if(drag==0){
+		if(Math.abs(mydx-orig.clientX) < clicktolerance &&  Math.abs(mydy-orig.clientY) < clicktolerance && elapsed < 350 && $( "#piirracheckbox" ).is(':checked') && getTarget(orig).className != 'manualsplit'){
+			tester=1;
+		}
+	}else if ($("#piirracheckbox").is(':checked')){
+		if((temp.x-prex)*(temp.x-prex)+(temp.y-prey)*(temp.y-prey)>30 || drag ==2){
+			tester=1;
+			prex=temp.x;prey=temp.y;
+		}
+	}
+//   if(orig.target.className.indexOf('leaflet') >-1){
+	if(tester==1 && !canitbesaved){
+		//alert("myclick Lat, Lon : " + temp.x + ", " + temp.y+ " "+orig.target.className)
+		var pair = ratapisteet[drawcontrol].split(';');
+		var c_x = Number(pair[0]);
+		var c_y = -Number(pair[1]);
+		var isControlBind = $("#snap").is(':checked');
+		if (!isControlBind) { //нельзя чтобы точка попадала в кп
+			if (isEventChoice) {
+				for (var i = ratapisteet.length - 2; i > 0; i--) {
+					pair = ratapisteet[i].split(';');
+					if (Number(pair[0]) == temp.x && -Number(pair[1]) == temp.y) {
+						temp.x++;
+						break;
+					}
+				}
+			} else if (c_x == temp.x && c_y == temp.y) {
+				temp.x++;
+			}
+		}
+
+		var index = drawpoints_x.length;
+		if (index == 0) {
+			pair = ratapisteet[drawcontrol - 1].split(';');
+			drawpoints_x[0] = Number(pair[0]);
+			drawpoints_y[0] = -Number(pair[1]);
+			index++;
+		}
+		if (drawpoints_x[index - 1] != temp.x || drawpoints_y[index - 1] != temp.y) {
+			drawpoints_x[index] = temp.x;
+			drawpoints_y[index] = temp.y;
+
+			if (isControlBind) {
+				if (isEventChoice) {
+					isControlBind = false;
+					for (i = ratapisteet.length - 2; i > 0; i--) {
+						pair = ratapisteet[i].split(';');
+						if (Math.abs(Number(pair[0]) - temp.x) < 6 && Math.abs(-Number(pair[1]) - temp.y) < 6) {
+							isControlBind = true;
+							c_x = Number(pair[0]);
+							c_y = -Number(pair[1]);
+							choiceControlList.push(i);
+							break;
+						}
+					}
+				} else {
+					isControlBind = Math.abs(c_x - temp.x) < 6 && Math.abs(c_y - temp.y) < 6;
+				}
+			}
+
+			if (isControlBind) {
+				if (c_x != temp.x || c_y != temp.y) {
+					temp.x = drawpoints_x[index] = c_x;
+					temp.y = drawpoints_y[index] = c_y;
+				}
+				drawcontrol++;
+				syncDrawControlInfo();
+				if (isEventChoice) {
+					drawChoiceCircles();
+				} else {
+					pair = ratapisteet[drawcontrol].split(';');
+					c_x = Number(pair[0]);
+					c_y = -Number(pair[1]);
+				}
+			}
+
+			if (drawpoints_x.length == 1) {
+				drawpolyline = new L.polyline([L.latLng(map.unproject([temp.x, temp.y], 20))], { color:'red', weight:3, opacity:1 });
+				map.addLayer(drawpolyline);
+			} else {
+				drawpolyline.addLatLng(map.unproject([temp.x, temp.y], 20));
+			}
+		}
+		if (!isEventChoice) {
+			map.removeLayer(drawcircle);
+			map.removeLayer(drawleg);
+		}
+		if ((controlCount > 0 && drawcontrol > controlCount) || (controlCount == 0 && drawcontrol > ratapisteet.length - 2)) {
+			canitbesaved = true;
+			//$("#savebutton").css("visibility", "visible");
+			//$("#savebutton").attr("disabled", false);
+			if (map.hasLayer(drawingmarker)) { map.removeLayer(drawingmarker); }
+		} else if (!isEventChoice) {
+			drawleg = L.polyline([
+				map.unproject([temp.x, temp.y], 20),
+				map.unproject([c_x, c_y], 20)
+			], { color:'#0000ff', weight:8, opacity:0.25 });
+			map.addLayer(drawleg);
+			drawcircle = L.circle(map.unproject([c_x, c_y], 20), 2.1, { color:'#0000ff', fill:false, weight:16, opacity:0.25 });
+			map.addLayer(drawcircle);
+			updatedelaymarkers();
+		}
+	}
+	mydx=-9999;
+	mydy=-9999;
+}
+
+function syncDrawControlInfo() {
+	$('#controlInfo').html( //controlCount: все КП + финиш
+		'Пройдено КП: ' + (drawcontrol >= controlCount ? controlCount - 1 : drawcontrol - 1) + '/' + (controlCount - 1) +
+		(drawcontrol == controlCount ? ' Теперь на финиш!' : (drawcontrol > controlCount ? ' ОК. Можно сохранить!' : ''))
+	);
+}
+
+function upload(){
+	if ($("#kilpailijagps").val() > 0 && $("#sarjagps").val() > 0 || eventtype==2){
+		document.gpsupform.submit();
+	}else{
+		alert("#term_55#");
+	}
+}
+
+function savegpstrack(){
+	var offset=$("#goffset" ).slider( "value" );
+	var trackdump='';
+	var temp=GPSpolyline.getLatLngs();
+
+	if(offset <0){
+ 		var pt=map.project(temp[0],20);
+		for(var i=offset;i < 0;i++){
+			trackdump=trackdump+'N'+(Math.floor(10*pt.x)/10)+';'+(Math.floor(-10*pt.y)/10);
+		}
+		for(i=0;i < temp.length;i++){
+ 			pt=map.project(temp[i],20);
+			trackdump=trackdump+'N'+(Math.floor(10*pt.x)/10)+';'+(Math.floor(-10*pt.y)/10);
+		}
+	}else{
+		for(i=offset;i < temp.length;i++){
+  			pt=map.project(temp[i],20);
+			trackdump=trackdump+'N'+(Math.floor(10*pt.x)/10)+';'+(Math.floor(-10*pt.y)/10);
+		}
+	}
+	var athlete= gpsathlete;
+	var suunnistaja='';
+	if(eventtype==2){
+		suunnistaja= $( "#suunnistaja" ).val();
+	}
+
+	var sarja= gpssarja;
+	var gpshajonta='';
+	if(eventtype==3){
+		gpshajonta=sarja;
+		sarja=GPSCLASS;
+	}
+	var kom= $( "#gpskommentit" ).val();
+	var rastpist='';
+
+	trackdump=trackdump+'|'+rastpist;
+
+	var usersplits='';
+	if(eventtype==2){
+		for(i=1;i<ratapisteet.length-1;i++){
+			var split=$("#manualsplit"+i).val();
+			split=split.replace('.','');
+			split=split.replace(',','');
+			split=split.replace(':','');
+			split=split.replace('_','');
+			split=split.replace(' ','');
+
+			split=1*split;
+			var min=Math.floor(split/100);
+			var sec=Math.floor(split-100*Math.floor(split/100));
+			min=str_pad_left(min,'0',2);
+			sec=str_pad_left(sec,'0',2);
+			usersplits=usersplits+'m'+min+'s'+sec;
+		}
+	}
+	if(usersplits.length>0){
+		usersplits=usersplits.substring(1);
+	}
+
+	$.post("reitti.#ext#", {
+		eventid: eventid,
+		id: athlete,
+		track: trackdump,
+		act: 'jsstrk',
+		komm: kom,
+		etype: eventtype,
+		GPS: 1,
+		rataid: sarja ,
+		hajonta: gpshajonta,
+		suunnistaja: suunnistaja,
+		usersplits: usersplits
+	}, function(){
+  		alert("#term_56#");
+		document.location=document.location+'?act=map&id='+eventid;
+	});
+}
+
+function savetrack(){
+	if(canitbesaved && (athlete= $( "#kilpailija" ).val() != '0' || eventtype==2)){
+		canitbesaved=false;
+		//$("#savebutton").css("visibility", "hidden");
+		//$("#savebutton").attr("disabled", false);
+		var trackdump='';
+
+		for(var i=0; i < drawpoints_x.length;i++){
+			trackdump += 'N'+drawpoints_x[i]+';'+(-1*drawpoints_y[i]);
+		}
+		var athlete= $( "#kilpailija" ).val();
+		var suunnistaja='';
+		if(eventtype==2){
+			suunnistaja= $( "#suunnistaja" ).val();
+		}
+
+		var sarja= $( "#sarjapiirto" ).val();
+
+		var kom= $( "#kommentit" ).val();
+		var rastpist='';
+		for(i = 1;i<ratapisteet.length-1;i++){
+			rastpist=rastpist+"N"+ratapisteet[i];
+		}
+		trackdump=trackdump+'|'+rastpist;
+
+		var usersplits='';
+		if(eventtype==2){
+			for(i=1;i<ratapisteet.length-1;i++){
+				var split=$( "#manualsplit"+i ).val();
+				split=split.replace('.','');
+				split=split.replace(',','');
+				split=split.replace(':','');
+				split=split.replace('_','');
+				split=split.replace(' ','');
+
+				split=1*split;
+				var min=Math.floor(split/100);
+				var sec=Math.floor(split-100*Math.floor(split/100));
+				min=str_pad_left(min,'0',2);
+				sec=str_pad_left(sec,'0',2);
+				usersplits=usersplits+'m'+min+'s'+sec;
+			}
+		}
+		if (usersplits.length > 0) {
+			usersplits = usersplits.substring(1);
+		}
+
+		$.post("reitti.#ext#", {
+			eventid: eventid,
+			id: athlete,
+			track: trackdump,
+			act: 'jsstrk',
+			komm: kom,
+			etype: eventtype,
+			rataid: sarja ,
+			hajonta: forking[athlete],
+			suunnistaja: suunnistaja,
+			usersplits: usersplits
+		}, function(){
+  			alert("#term_56#");
+  			destroydrawings();
+  			sarjavaihtopiirto();
+  			//$( "#massstartcheckbox" ).prop('checked', false);
+			setanimtype();
+  			$( "#piirracheckbox" ).prop('checked', false);
+  			piirto();
+  		});
+	}else{
+		alert("#term_57#");
+	}
+}
+
+function plusthreedelay(){
+	if (drawpoints_x.length > 0) {
+		drawpoints_x[drawpoints_x.length]=drawpoints_x[drawpoints_x.length-1];
+		drawpoints_y[drawpoints_y.length]=drawpoints_y[drawpoints_y.length-1];
+		drawpolyline.addLatLng(map.unproject([1*drawpoints_x[drawpoints_x.length-1], 1*drawpoints_y[drawpoints_y.length-1]], 20));
+		updatedelaymarkers();
+	}
+}
+
+function destroydrawings(){
+	drawpoints_x=[];
+    drawpoints_y=[];
+    drawcontrol=1;
+
+    canitbesaved=false;
+	if(map.hasLayer(drawpolyline)){	map.removeLayer(drawpolyline); }
+	if(map.hasLayer(drawcircle)){ map.removeLayer(drawcircle); }
+	if(map.hasLayer(drawleg)){ map.removeLayer(drawleg); }
+	clearChoiceCircles();
+
+	drawpolyline='';
+}
+
+function updatedelaymarkers(){
+	var delay=0;
+	delaymarkergroup.clearLayers();
+	for(i=1; i<drawpoints_x.length;i++){
+		if(drawpoints_x[i]==drawpoints_x[i-1] && drawpoints_y[i]==drawpoints_y[i-1]){
+			delay += 3;
+		}
+		if(delay>0 && (drawpoints_x[i]!=drawpoints_x[i-1] || drawpoints_y[i]!=drawpoints_y[i-1] || i==drawpoints_x.length-1)){
+			var myIcon = L.divIcon({className: 'delay',	html: '+'+delay,iconSize: new L.Point(40,40) });
+			var delaylabel = L.marker(map.unproject([drawpoints_x[i-1],drawpoints_y[i-1]], 20), {icon: myIcon});
+			delaymarkergroup.addLayer(delaylabel);
+			delay=0;
+		}
+	}
+}
+
+function makedelaylabel(delay,x,y,color){
+	var myIcon = L.divIcon({className: 'delay',	html: '<div style="color: '+color+'">+'+delay+'</div>',iconSize: new L.Point(40,40) });
+	group.addLayer(L.marker(map.unproject([1*x,-1*y], 20), {icon: myIcon}));
+}
+
+function tempdraw(){
+	group.clearLayers();
+	var polyline = L.polyline([
+    	map.unproject([3, 3], 20),
+    	map.unproject([500, 500], 20),
+    	map.unproject([200, 1000], 20)
+	]);
+	group.addLayer(polyline);
+}
+
+
+// ----------------------------
+var animrunning=0;
+var animspeed=0;
+var animpaused=0;
+
+var forking=[];
+var linecolor=[];
+var athletenames=[];
+
+linecolor[linecolor.length]="#DE0E09";
+linecolor[linecolor.length]="#0043CA";
+linecolor[linecolor.length]="#88D000";
+linecolor[linecolor.length]="#8A092E";
+linecolor[linecolor.length]="#DADA35";
+linecolor[linecolor.length]="#9303C1";
+linecolor[linecolor.length]="#17F1EE";
+
+linecolor[linecolor.length]="#C8AF12";
+linecolor[linecolor.length]="#2052F3";
+
+linecolor[linecolor.length]="#25F208";
+linecolor[linecolor.length]="#09D19F";
+linecolor[linecolor.length]="#0043CA";
+linecolor[linecolor.length]="#10A7F4";
+linecolor[linecolor.length]="#E137B5";
+linecolor[linecolor.length]="#B46701";
+linecolor[linecolor.length]="#16AD20";
+
+linecolor[linecolor.length]="#E80AEB";
+
+linecolor[linecolor.length]="#E60749";
+linecolor[linecolor.length]="#1B6D2C";
+
+linecolor[linecolor.length]="#1C2A80";
+linecolor[linecolor.length]="#8A092E";
+
+linecolor[linecolor.length]="#2A04D0";
+	
+	
+if(eventtype==2){
+	$("#kilpailija").css("visibility", "hidden");
+}
+	
+function classescourses(eventid){
+	$.getJSON("reitti.#ext#?act=jsclassescourses&eventid="+eventid+'&zip='+zip, function(data) {
+		$("#sarja").html('');
+		$("#sarjapiirto").html('');
+		$("#sarjagps").html('');
+		$("#sarja").append('<option value="0">#term_1#</option>');
+		$("#sarjapiirto").append('<option value="0">#term_1#</option>');
+		$("#sarjagps").append('<option value="0">#term_1#</option>');
+		$.each(data, function(){
+			$.each(this, function(k, v) {
+				$("#sarja").append('<option value="'+ k +'">'+ v +'</option>');
+				$("#sarjapiirto").append('<option value="'+ k +'">'+ v +'</option>');
+				$("#sarjagps").append('<option value="'+ k +'">'+ v +'</option>');
+			
+			});
+		});
+		$("#sarja").append('<option value="99999">Все КП</option>');
+	
+		if(startupclass != ''){
+			$("#sarja").find('option[value="'+startupclass+'"]').attr("selected",true);
+			startupclass='';
+			sarjavaihto();
+		}
+	});
+}
+	
+classescourses('#eventid#');
+	
+function update(sarja){
+	$.getJSON("reitti.#ext#?act=jskilp&eventid="+eventid+"&sarja="+sarja+"&eventtype="+eventtype+'&zip='+zip, function(data) {
+		$("#kilp").html('');
+		$.each(data, function(){
+			$.each(this, function(k, v) {
+				tmp=v.split(';');
+				$("#kilp").append('<option value="'+ k +'">'+ tmp[0] +'</option>');
+				if(eventtype == 3){
+					forking[''+k]=1*tmp[1];
+				}else{
+					forking[''+k]=1*sarja;
+				}
+				athletenames[''+k]=tmp[0].replace('*','');
+			});
+		});
+			
+		if(startupathletes !=''){
+			tmp = (' ,'+startupathletes).split(',');
+			for (i=0;i<tmp.length;i++){
+				if(tmp[i] !=' '){
+					$("#kilp").find('option[value="'+tmp[i]+'"]').attr("selected",true);
+				}
+			}
+			loadtracks();
+		}
+	
+		if(startanimathletes !=''){
+			tmp= (' ,'+startanimathletes).split(',');
+			for (i=0;i<tmp.length;i++){
+				if(tmp[i] !=' '){
+					$("#kilp").find('option[value="'+tmp[i]+'"]').attr("selected",true);
+				}
+			}
+		
+			if(startanimathletes =='all'){
+				$("#kilp > option").each(function() {
+  					$(this).attr("selected",true);
+				});
+			}
+			if(startanimathletes =='*'){
+				$("#kilp > option").each(function() {
+					if($(this).text().indexOf('*') >-1){
+  						$(this).attr("selected",true);
+  					}
+				});
+			}
+			
+		// 
+			if (focusrunner==0){
+		
+				var temp2=99999999;
+				var temp =$( "#kilp" ).val();
+				if(temp.length > kilpmax){
+					var tmplist=[];
+					for (i = 0; i < kilpmax; i++) {
+						tmplist[i]=temp[i];
+					}
+					temp=tmplist.join(',').split(',');
+				}
+				tmp=temp.join(',').split(',');
+		
+				for (i=0;i<tmp.length;i++){
+					if(tmp[i] >0){
+						if(tmp[i] >50000 && tmp[i] -50000 < temp2 ){
+							focusrunner=tmp[i];
+							temp2=tmp[i]-50000 ;
+						}
+						if(tmp[i] < temp2 ){
+							focusrunner=tmp[i];
+							temp2=tmp[i];
+						}
+					}
+				}
+			}
+			startanimathletes='';
+			loadanim();
+			//$("#animationtype").find('option[value="'+startfrom+'"]').attr("selected",true);
+		}
+
+	});
+	$.getJSON("reitti.#ext#?act=jskilppiirto&eventid="+eventid+"&sarja="+sarja+"&eventtype="+eventtype, function(data) {
+		$("#kilpailija").html('');
+		$("#kilpailijagps").html('');
+
+		$("#kilpailija").append('<option value="0" selected>#term_2#</option>');
+		$("#kilpailijagps").append('<option value="0" selected>#term_2#</option>');
+		$.each(data, function(){
+			$.each(this, function(k, v) {
+				$("#kilpailija").append('<option value="'+ k +'">'+ v +'</option>');
+				$("#kilpailijagps").append('<option value="'+ k +'">'+ v +'</option>');
+			});
+		});
+	});
+
+	$("#kilp").MultiSelect({
+        css_class_selected: "myselection", keepPrevSelection: true
+    });
+}
+	
+function sarjavaihto(){
+	var sarja= $( "#sarja" ).val();
+	if(sarja>0){
+		update(sarja);
+	}else{
+		$("#kilp").html('');
+	}
+	stopanim();
+	animaatio=[];
+	$("#animdiv").css("visibility", "hidden");
+	tracks=[];
+
+	processreitit([]);
+	hilitegroup.clearLayers();
+	$('#athletetooltip').attr("style","z-index:99999;font-size:10px;position:absolute;left:-99px;top:-99px;")
+
+	if(eventtype!=3 && sarja>0){
+		loadcourse();
+	}
+}
+
+var ratapisteet=[];
+function  kilpailijavaihtopiirto(){
+	var sarja = $("#sarjapiirto").val();
+	var athlete = $("#kilpailija").val();
+	controlCount = 0;
+	if (eventtype==3) {
+		$.getJSON("reitti.#ext#?act=jsratapisteet&eventid="+eventid+"&course="+forking[''+athlete], function(data) {
+			$.each(data, function(k, v) {
+				ratapisteet=v.split('N');
+				if (ratapisteet.length > 0){
+					var pair1=ratapisteet[drawcontrol-1].split(';');
+					var pair2=ratapisteet[drawcontrol].split(';');
+					drawpoints_x[0]=1*pair1[0];
+					drawpoints_y[0]=-1*pair1[1];
+
+					drawpolyline = new L.polyline([L.latLng(map.unproject([1*pair1[0], -1*pair1[1]], 20))], {color: 'red', weight: 3, opacity: 1});
+					map.addLayer(drawpolyline);
+
+					drawleg = L.polyline([
+						map.unproject([1*pair1[0], -1*pair1[1]], 20),
+						map.unproject([1*pair2[0], -1*pair2[1]], 20)
+					], {color: '#0000ff',weight: 8, opacity: 0.25});
+					map.addLayer(drawleg);
+					drawcircle = L.circle(map.unproject([1*pair2[0], -1*pair2[1]], 20), 2.1, {color: '#0000ff', fill:false, weight:16, opacity: 0.25 });
+					map.addLayer(drawcircle);
+				}
+				if (drawingmarkeradded){
+					map.removeLayer(drawingmarker);	drawingmarkeradded=false;
+				}
+				if (drawingmarkeradded==false && touchmode==1){
+					drawingmarkeradded=true;
+					drawingmarker=L.marker(	map.unproject([drawpoints_x[0], drawpoints_y[0]], 20), {icon: drawingicon, draggable: true,zIndexOffset:2000}).addTo(map);
+					drawingmarker.addTo(map);
+					drawingmarker.on('dragend', function(e) {
+						mousestarttime = new Date().getTime();
+						myclick(e,2);
+					});
+					drawingmarker.on('drag', function(e) {
+						mousestarttime = new Date().getTime();
+						myclick(e,1);
+					});
+				}
+			});
+		});
+		loadcourse(forking[''+athlete]);
+	} else {
+		//когда передаем athlete будет получено количество кп, которое прошел игрок
+		$.getJSON("reitti.#ext#?act=jsratapisteet&eventid="+eventid+"&course="+sarja + (isEventChoice ? '&athlete=' + athlete : ''), function(data) {
+			$.each(data, function(k, v) {
+				if (k == 'athlete') {
+					controlCount = v;
+					syncDrawControlInfo();
+					return;
+				}
+				ratapisteet=v.split('N');
+				if (ratapisteet.length > 0 && (eventtype==2 || athlete !='0')) {
+					var pair1=ratapisteet[drawcontrol-1].split(';');
+					drawpoints_x[0]=pair1[0];
+					drawpoints_y[0]=-1*pair1[1];
+					drawpolyline = new L.polyline([L.latLng(map.unproject([1*pair1[0], -1*pair1[1]], 20))], { color:'red', weight:3, opacity:1 });
+					map.addLayer(drawpolyline);
+					if (isEventChoice) {
+						drawChoiceCircles();
+					} else {
+						var pair2 = ratapisteet[drawcontrol].split(';');
+						drawleg = L.polyline([
+							map.unproject([1 * pair1[0], -1 * pair1[1]], 20),
+							map.unproject([1 * pair2[0], -1 * pair2[1]], 20)
+						], { color:'#0000ff', weight:8, opacity:0.25 });
+						map.addLayer(drawleg);
+						drawcircle = L.circle(map.unproject([1 * pair2[0], -1 * pair2[1]], 20), 2.1, { color:'#0000ff', fill:false, weight:16, opacity:0.25 });
+						map.addLayer(drawcircle);
+					}
+				}
+				if (drawingmarkeradded){
+					map.removeLayer(drawingmarker);	drawingmarkeradded=false;
+				}
+				if(drawingmarkeradded==false && touchmode==1){
+					drawingmarkeradded=true;
+					drawingmarker=L.marker(	map.unproject([drawpoints_x[0], drawpoints_y[0]], 20), {icon: drawingicon, draggable: true,zIndexOffset:2000}).addTo(map);
+					drawingmarker.addTo(map);
+					drawingmarker.on('dragend', function(e) {
+						mousestarttime = new Date().getTime();
+						myclick(e,2);
+					});
+					drawingmarker.on('drag', function(e) {
+						mousestarttime = new Date().getTime();
+						myclick(e,1);
+					});
+				}
+			});
+			if (eventtype==2) {
+				showmanualsplits();
+			}
+		});
+	}
+	destroydrawings();
+}
+
+function drawChoiceCircles() {
+	if (choiceCircleList) {
+		for (var i = choiceCircleList.length - 1; i >= 0; i--) {
+			map.removeLayer(choiceCircleList[i]);
+		}
+		choiceCircleList.length = 0;
+	} else {
+		choiceCircleList = [];
+		choiceControlList = [];
+	}
+	for (i = ratapisteet.length - 2; i > 0; i--) { //0 - старт, его не показываем
+		if (choiceControlList.indexOf(i) < 0) { //если это КП не пройдено, то отмечаем его
+			var pair = ratapisteet[i].split(';');
+			var circle = L.circle(map.unproject([1 * pair[0], -1 * pair[1]], 20), 2.1, { color:'#0000ff', fill:false, weight:16, opacity:0.25 });
+			map.addLayer(circle);
+			choiceCircleList.push(circle);
+		}
+	}
+}
+
+function clearChoiceCircles() {
+	if (choiceCircleList && choiceCircleList.length > 0) {
+		for (var i = choiceCircleList.length - 1; i >= 0; i--) {
+			map.removeLayer(choiceCircleList[i]);
+		}
+		choiceCircleList.length = 0;
+		choiceControlList.length = 0;
+	}
+}
+
+function showmanualsplits(){
+	var html='<p style="text-align:right;">Your name:<br><input class=\"manualsplit\" style=\"height:12px; width:65px;\" id=\"suunnistaja\" name=\"suunnistaja\"><br><br>Cumulative splits.<br>Format <b>mmmss</b>';
+	for(i=1;i<ratapisteet.length-1;i++){
+		html=html+"<br>"+i+":<input class=\"manualsplit\" style=\"height:12px; width:45px;\" id=\"manualsplit"+i+"\" name=\"manualsplit"+i+"\">";
+	}
+	legend.update(html+"</p>");
+}
+	
+function sarjagpsvaihto(){
+	var sarja= $("#sarjagps").val();
+	if (sarja > 0){
+		update(sarja,'kilpailijagps');
+    } else {
+		$("#kilp").html('');
+	}
+}
+
+function sarjavaihtopiirto(){
+	var sarja = $("#sarjapiirto").val();
+	if(sarja > 0){
+		update(sarja);
+	} else {
+		$("#kilp").html('');
+	}
+	if(eventtype != 3 && sarja > 0){
+		loadcourse(sarja);
+	}
+	destroydrawings();
+	if (eventtype == 2){
+		kilpailijavaihtopiirto();
+		//showmanualsplits();
+	}
+}
+	
+function massstart(){
+	animrunning=0;
+	animtime=0;
+	setanimtype();
+	//if($( "#massstartcheckbox" ).is(':checked')){
+	//animtype=0;
+	//}else{
+	//animtype=1;
+	//}
+}
+
+function rasteittain(){
+	alert($( "#rasteittaincheckbox" ).is(':checked'));
+}
+function reititonoff(){
+	alert($( "#reititcheckbox" ).is(':checked'));
+}
+function rataonoff(){
+	alert($( "#ratacheckbox" ).is(':checked'));
+}
+function nimetonoff(){
+	alert($( "#nimetcheckbox" ).is(':checked'));
+}
+
+var athletetooltiplist=[];
+var animcolorid=[];
+function loadanim(){
+	animrunning=0;
+	animtime=0;
+	//$( "#massstartcheckbox" ).prop('checked', true);
+		
+	var kilplist=$( "#kilp" ).val();
+	if(kilplist.length > kilpmax){
+		var tmplist=[];
+		for (var i = 0; i < kilpmax; i++) {
+			tmplist[i]=kilplist[i];
+		}	
+		kilplist=tmplist.join(',').split(',');
+	}
+	animcolorid=[];
+	if(kilplist == null){
+	}else{
+		for (i = 0; i < kilplist.length; i++) {
+			animcolorid[1*kilplist[i]]=i;
+		}
+	}
+	$.getJSON("reitti.#ext#?act=jsanim&eventid="+eventid+"&kilp="+kilplist+'&zip='+zip, function(data) {
+		animdata=data;
+		animconsole.update();
+	});
+	loadsplits();
+	if(eventtype==3){
+		loadcourses();
+	}
+}
+
+var legendHTML='';
+var htracks=[];
+var tracks=[];
+function hilitetrack(tr,leg){//alert('z'+tr+'_'+leg);
+	var polid;
+	if(1*leg >0 || leg == '0'){
+		polid='z'+tr+'_'+leg;
+	}else{
+		polid='z'+tr;
+	}
+	if(null == tracks[polid]){
+	}else{
+		hilitepolly = new L.polyline(tracks[polid].getLatLngs(), {color: linecolor[trackcolorid[1*tr]%20], weight: 9, opacity: 1});
+		hilitegroup.addLayer(hilitepolly);
+		hilitepolly.on("mouseout", function(e){
+			var thislayer = getTarget(e);
+			map.removeLayer( thislayer );
+			hilitegroup.clearLayers();
+		});
+	}
+}
+
+function str_pad_left(string,pad,length){ return (new Array(length+1).join(pad)+string).slice(-length); }
+
+var trackcolorid=[];
+function loadtracks(){
+	var kilplist=$( "#kilp" ).val();
+		
+	if(kilplist.length > kilpmax){
+		var tmplist=[];
+		for (var i = 0; i < kilpmax; i++) {
+			tmplist[i]=kilplist[i];
+		}
+		kilplist=tmplist.join(',').split(',');
+	}
+	var sarja= $( "#sarja" ).val();
+	trackcolorid=[];
+	if(kilplist == null){
+		}else{
+		for (var i = 0; i < kilplist.length; i++) {
+		trackcolorid[1*kilplist[i]]=i;
+		}
+		}
+	    legendHTML='';
+		tracks=[];
+	$.getJSON("reitti.#ext#?act=jsreitit&eventid="+eventid+"&kilp="+kilplist+"&eventtype="+eventtype+'&zip='+zip, function  (data) {processreitit(data)});
+
+	loadsplits();
+
+	if(eventtype==3 && sarja >0){
+	loadcourses();
+	}
+	}
+	var fastestsplit=[];
+	var splittimetheme=[];
+	function processreitit (data) {
+		reittidata=data;
+		var fastest=[];
+		group.clearLayers();
+		splittimetheme=[];
+        var legcount=0;
+			fastestsplit=[];
+			//	for (var i = 0; i < 500; i++) {
+			//	fastestsplit[i]=99999999999999;
+			//	}
+		if(themetype==1){
+					$.each(data, function(){
+				$.each(this, function(k, v) {
+				var tmp=v.split('S');
+				var tmpsplit=tmp[0].split(';');
+				if(rasticount != tmpsplit.length-1 && tmpsplit.length-1  > 2){
+				rasticount = tmpsplit.length-1;
+				}
+				for (var i = 0; i < tmpsplit.length; i++) {
+				if(i>0){
+				splittimetheme[''+k+'_'+i]=tmpsplit[i]-tmpsplit[i-1];
+				}else{
+				splittimetheme[''+k+'_'+i]=tmpsplit[i];
+				}
+				if(splittimetheme[''+k+'_'+i] < fastest[i] && splittimetheme[''+k+'_'+i] > 0 || !fastest.hasOwnProperty(i) ){fastest[i]=splittimetheme[''+k+'_'+i];}
+				}
+				});
+				});
+		}
+		
+				if(themetype==2){
+					$.each(data, function(){
+				$.each(this, function(k, v) {
+				var tmp=v.split('S');
+				var tmpsplit=tmp[0].split(';');
+				if(rasticount != tmpsplit.length-1 && tmpsplit.length-1  > 2){
+				rasticount = tmpsplit.length-1;
+				}
+				for (var i = 0; i < tmpsplit.length; i++) {
+				if(i>0){
+				splittimetheme[''+k+'_'+i]=(tmpsplit[i]-tmpsplit[i-1])/(tmpsplit[tmpsplit.length-2]+1);
+				}else{
+				splittimetheme[''+k+'_'+i]=tmpsplit[i]/(tmpsplit[tmpsplit.length-2]+1);
+				}
+				if(splittimetheme[''+k+'_'+i] < fastest[i] && splittimetheme[''+k+'_'+i] > 0 || !fastest.hasOwnProperty(i) ){fastest[i]=splittimetheme[''+k+'_'+i];}
+				}
+				});
+				});
+		}
+
+					$.each(data, function(){
+				
+
+				$.each(this, function(k, v) {
+				var tmp=v.split('S');
+	            
+				var tmpsplit=tmp[0].split(';');
+				for (var i = 0; i < tmpsplit.length; i++) {
+				var tmpsplitleg=0;
+				if(i>0){
+				var min=str_pad_left(Math.floor((tmpsplit[i]-tmpsplit[i-1])/60),'0',2);var sec=str_pad_left(Math.floor((tmpsplit[i]-tmpsplit[i-1])-60*Math.floor((tmpsplit[i]-tmpsplit[i-1])/60)),'0',2);
+				 tmpsplitleg=tmpsplit[i]-tmpsplit[i-1];
+				}else{
+				var min=str_pad_left(Math.floor((tmpsplit[i])/60),'0',2);var sec=str_pad_left(Math.floor((tmpsplit[i])-60*Math.floor((tmpsplit[i])/60)),'0',2);
+				 tmpsplitleg=tmpsplit[i];
+				}
+
+				if((tmpsplitleg<fastestsplit[i] || !fastestsplit.hasOwnProperty(i))&& tmpsplitleg*1>0 ){fastestsplit[i]=tmpsplitleg*1;
+				}
+	}
+	});
+	});
+			$.each(data, function(){
+
+				$.each(this, function(k, v) {
+				var tmp=v.split('S');
+	            
+				var tmpsplit=tmp[0].split(';');
+				for (var i = 0; i < tmpsplit.length; i++) {
+	
+				
+				var behind=0;
+				if(i>0){
+				behind=tmpsplit[i]-tmpsplit[i-1]-fastestsplit[i];
+				var min=str_pad_left(Math.floor((tmpsplit[i]-tmpsplit[i-1])/60),'0',2);var sec=str_pad_left(Math.floor((tmpsplit[i]-tmpsplit[i-1])-60*Math.floor((tmpsplit[i]-tmpsplit[i-1])/60)),'0',2);
+				}else{
+				var min=str_pad_left(Math.floor((tmpsplit[i])/60),'0',2);var sec=str_pad_left(Math.floor((tmpsplit[i])-60*Math.floor((tmpsplit[i])/60)),'0',2);
+				behind=tmpsplit[i]-fastestsplit[i];
+				}
+				var minbeh=Math.floor((behind)/60);var secbeh=str_pad_left(Math.floor((behind)-60*Math.floor((behind)/60)),'0',2);
+			
+				splittime[''+k+'_'+i]='<b>'+min+'.'+sec+'</b>'+' (+'+minbeh+'.'+secbeh+')';
+
+				}
+				if(legcount < tmpsplit.length)legcount=tmpsplit.length;
+				var tmplegs =(''+tmp[1]).split('C');
+				legendHTML='<tr><td><div style=\"background-color: '+linecolor[trackcolorid[1*k]%20]+';width:7px;height:7px;border:1px solid #000000\"></div></td><td><i onMouseOut=\"hilitedot=0;hilitegroup.clearLayers();\" onMouseover=\"hilitedot='+k+';hilitetrack(\''+k+'\')\">'+athletenames[''+k]+'</i></td></tr>'+legendHTML;
+				var polyline2;
+				var pointcount2=0;
+				var leg;
+				for (leg = 0; leg < tmplegs.length; leg++) {
+				var tmp =tmplegs[leg].split('N');
+			    var polyline;
+
+
+				
+				var pointcount=0;
+				var delay=0;
+				for (i = 0; i < tmp.length; i++) {
+				if (tmp[i].length >2){
+				    var pair=tmp[i].split(';');
+					if(pointcount2==0){
+						polyline2 = new L.polyline([L.latLng(map.unproject([1*pair[0], -1*pair[1]], 20))], {className: 'z'+k ,color: linecolor[trackcolorid[1*k]%20], weight: 3, opacity: 0.7});
+					}else{
+						polyline2.addLatLng(map.unproject([1*pair[0], -1*pair[1]], 20))
+					}
+					if(pointcount==0){
+					
+					if(themetype==1 || themetype==2){
+					var speedcolor = Math.floor((splittimetheme[''+k+'_'+leg]-fastest[leg])/(fastest[leg]*1+0.001)*256*4.5);
+					if(speedcolor < 0 )speedcolor=0;
+					if(speedcolor > 255 )speedcolor=255;
+					//speedcolor='#'+(255-speedcolor).toString(16)+''+speedcolor.toString(16)+'00';
+					speedcolorR=str_pad_left(speedcolor.toString(16),'0',2);
+					speedcolorG=str_pad_left((255-speedcolor).toString(16),'0',2);
+
+					speedcolor='#'+speedcolorR+''+speedcolorG+'00';
+					polyline = new L.polyline([L.latLng(map.unproject([1*pair[0], -1*pair[1]], 20))], {className: 'z'+k ,color: speedcolor, weight: 3, opacity: 0.7});
+
+					}
+					if(themetype==0){
+						polyline = new L.polyline([L.latLng(map.unproject([1*pair[0], -1*pair[1]], 20))], {className: 'z'+k ,color: linecolor[trackcolorid[1*k]%20], weight: 3, opacity: 0.7});
+
+					}
+						}else{
+						polyline.addLatLng(map.unproject([1*pair[0], -1*pair[1]], 20))
+					}
+					pointcount++;pointcount2++;
+				if(i>1){
+				var pair2=tmp[i-1].split(';');
+				if(pair[0]==pair2[0] && pair[1]==pair2[1]){
+				delay=delay+3;
+				}else{
+				if(delay>0){
+				if(leg+1 == displayleg || displayleg==0){
+					makedelaylabel(delay,pair2[0],pair2[1],linecolor[trackcolorid[1*k]%20]);
+				}
+				delay=0;
+				}
+				}
+				}
+				}
+				}
+			   tracks['z'+k+'_'+leg]=polyline;
+
+			   legtooltip[''+k+'_'+polyline.getLatLngs()]=splittime[''+k+'_'+leg];
+			   	//tracks['z'+k+'_'+leg].on("mouseover", function(e,athletetooltip=athletenames[''+k],hstyle={color: linecolor[(1*k)%20], weight: 9, opacity: 1}){
+				tracks['z'+k+'_'+leg].on("mouseover", function(e){
+				hstyle={color: linecolor[trackcolorid[1*k]%20], weight: 9, opacity: 1};
+				var athletetooltip=athletenames[''+k];
+				var orig =e.originalEvent;
+				 var layer = getTarget(e);
+				 
+				$("#athletetooltip").html(legtooltip[''+k+'_'+getTarget(e).getLatLngs()]+' '+athletetooltip);
+		$('#athletetooltip').attr("style","z-index:99999;font-size:10px;position:absolute;left:"+(orig.clientX+10)+"px;top:"+(orig.clientY+13)+"px;padding: 2px 2px;    font: 14px/16px Arial, Helvetica, sans-serif;color: #666;    background: white;    background: rgba(255,255,255,0.8);")
+
+				 var layer = getTarget(e);//alert(athletenames[''+k]+' '+orig.clientX+' '+orig.clientY);
+				hilitepolly = new L.polyline(layer.getLatLngs(), hstyle);
+				hilitegroup.addLayer(hilitepolly);
+				hilitepolly.on("mouseout", function(e){
+				 var thislayer = getTarget(e);
+					map.removeLayer( thislayer );
+				hilitegroup.clearLayers();
+				$("#athletetooltip").html('');
+
+		$('#athletetooltip').attr("style","z-index:99999;font-size:10px;position:absolute;left:-99px;top:-99px;")
+				
+				});
+				});
+				
+                if(leg+1 == displayleg || displayleg==0){
+				legtooltip[tracks['z'+k+'_'+leg].getLatLngs()]=leg;
+				group.addLayer(tracks['z'+k+'_'+leg]);
+				}
+
+				}
+			   
+			   tracks['z'+k]=polyline2;
+			   //htracks['z'+k]=polyline.getLatLngs();
+			
+				var some='';
+			
+				if(startupathletes != ''){
+				some='<a href=https://twitter.com/share class=twitter-share-button  data-dnt=true  data-count=none>Tweet</a><br><div id=fbshare2 class=fb-share-button data-layout=button></div>';
+				startupathletes='';
+				}
+				
+				legend.update('<table>'+legendHTML+'</table><br>'+some);
+			
+				});
+				});
+				if($("#themeleg option").length != legcount){
+				$("#themeleg").html('');
+				$("#themeleg").append('<option value="0">#term_58#</option>');
+				for(var i=1;i<	legcount;i++){
+				$("#themeleg").append('<option value="'+ i +'">'+ i +'</option>');
+				}
+				}
+				}
+	
+		function loadsplits(){
+				var kilplist=$( "#kilp" ).val();
+					if(kilplist.length > kilpmax){
+	var tmplist=[];
+		for (var i = 0; i < kilpmax; i++) {
+		tmplist[i]=kilplist[i];
+		}	
+		kilplist=tmplist.join(',').split(',');
+	}
+	
+				var sarja= $( "#sarja" ).val();
+	$.getJSON("reitti.#ext#?act=jsvaliajat&eventid="+eventid+"&kilp="+kilplist+'&zip='+zip, function(data) {
+       
+	   var temptxt='';
+		$.each(data, function(){
+				$.each(this, function(k, v) {
+					temptxt=temptxt+v+"\n"; 
+			});
+		});
+		$("#valiajat").html(temptxt);
+
+		$('#valiajat').attr("style",style="font-size:10px;width: 350px; height: 120px;resize: none;white-space:nowrap;overflow: scroll;text-align:center;")
+
+	});
+	}
+function loadcomments(){
+	var kilplist=$( "#kilp" ).val();
+	if(kilplist.length > kilpmax){
+	var tmplist=[];
+		for (var i = 0; i < kilpmax; i++) {
+		tmplist[i]=kilplist[i];
+		}	
+		kilplist=tmplist.join(',').split(',');
+	}
+				var sarja= $( "#sarja" ).val();
+	$.getJSON("reitti.#ext#?act=jskommentit&eventid="+eventid+"&kilp="+kilplist+'&zip='+zip, function(data) {
+       
+	   var temptxt='';
+		$.each(data, function(){
+				$.each(this, function(k, v) {
+					temptxt=temptxt+v+"<br>\n"; 
+			});
+		});
+		$("#valiajat").html(temptxt);
+
+		$('#valiajat').attr("style",style="font-size:10px;width: 350px; height: 120px;resize: none;overflow: scroll;")
+
+	});
+}
+	
+function loadcourses(){
+	var kilplist=$( "#kilp" ).val();
+	var sarja= $( "#sarja" ).val();
+	//var tmp = kilplist.split(",");
+	if(kilplist.length > kilpmax){
+		var tmplist=[];
+		for (var i = 0; i < kilpmax; i++) {
+		tmplist[i]=kilplist[i];
+		}	
+		kilplist=tmplist.join(',').split(',');
+	}
+	for (i = 0; i < kilplist.length; i++) {
+		kilplist[i]=1*forking[''+kilplist[i]];
+	}
+
+	kilplist=kilplist.join(',');
+				
+	$.getJSON("reitti.#ext#?act=jsradat&eventid="+eventid+"&sarja="+sarja+"&hajonnat="+kilplist, function(data) {
+		coursegroup.clearLayers();
+		$.each(data, function(){
+			$.each(this, function(k, v) {
+			var tmp =(''+v).split('N');
+
+			for (i = 0; i < tmp.length; i++) {
+				if (tmp[i].length >2){
+					var fields=tmp[i].split(';');
+					//line
+					if(fields[0] == 4){
+						coursegroup.addLayer(L.polyline([
+							map.unproject([1*fields[1], -1*fields[2]], 20),
+							map.unproject([1*fields[3], -1*fields[4]], 20)
+						], {color:'#aa00aa', weight:4}));
+					//circle
+					} else if(fields[0] == 1){
+						coursegroup.addLayer(L.circle(map.unproject([1*fields[1], -1*fields[2]], 20), 1.8, {color:'#aa00aa', fill:false, weight:4}));
+					//controlNumber
+					} else if(fields[0] == 3){
+						var myIcon = L.divIcon({className:'contrnro', html:fields[3], iconSize:new L.Point(20,20), iconAnchor:new L.Point(10,10) });
+						coursegroup.addLayer(L.marker(map.unproject([1*fields[1]+10, -1*fields[2]-12], 20), {icon:myIcon}));
+					//doubleCircle
+					} else if(fields[0] == 2){
+						coursegroup.addLayer(L.circle(map.unproject([1*fields[1], -1*fields[2]], 20), 2, {color:'#aa00aa', fill:false, weight:4}));
+						coursegroup.addLayer(L.circle(map.unproject([1*fields[1], -1*fields[2]], 20), 1.4, {color:'#aa00aa', fill:false, weight:4}));
+					}
+				}
+			}
+
+			//var polyline = L.polyline(tmp2);
+			//polyline.addLatLng(map.unproject([3, 3], 20));
+			//polyline.addLatLng(map.unproject([500, 500], 20));
+
+			});
+		});
+	});
+}
+	
+var kohdistusp=[];
+var kohdistuspoint=[];
+var kohdistuspointx=[];
+var kohdistuspointy=[];
+	
+function updatecontrols(e,k){
+	coursegroup.clearLayers();
+	var pi=Math.PI;
+	//coursegroup= undefined;
+	//coursegroup = L.layerGroup().addTo(map);
+ 	var orig =e.originalEvent;
+	//if(orig.target.className
+	var drcoords = e.target.getLatLng();
+	var temp=map.project([drcoords.lat ,drcoords.lng],20);
+	var pointkey=-1;
+	var redflag=false;
+	for(j=0;j<kohdistusp.length;j++){
+		if(kohdistusp[j] == k){
+			redflag=true;
+			pointkey=j;
+		}
+	}
+	if(!redflag){
+		$.each(kohdistusdata, function(){
+			$.each(this, function(key, val) {
+				if(k == key){
+					kohdistusp.push(k);
+					kohdistuspoint.push(val);
+					pointkey=kohdistusp.length-1;
+				}
+			});
+		});
+	}
+	kohdistuspointx[pointkey]=temp.x;
+	kohdistuspointy[pointkey]=temp.y;
+
+	var dx=0,dy=0;
+	var fields;
+	if(kohdistusp.length==1){
+		fields=(''+kohdistuspoint[pointkey]).split(',');
+		dx=1*fields[0]-temp.x;
+		dy=1*fields[1]+temp.y;
+	}else{
+		// kiertokohdistus
+		if(pointkey ==0){
+			fields=(''+kohdistuspoint[0]).split(',');
+			x1=kohdistuspointx[0];
+			y1=kohdistuspointy[0];
+        	ox1=1*fields[0];
+			oy1=-1*fields[1];
+				
+			fields=(''+kohdistuspoint[1]).split(',');
+			x2=kohdistuspointx[1];
+			y2=kohdistuspointy[1];
+
+			ox2=1*fields[0];
+			oy2=-1*fields[1];
+				
+			dx=x1-ox1;
+			dy=y1-oy1;
+		}else{
+			fields=(''+kohdistuspoint[1]).split(',');
+			x1=kohdistuspointx[1];
+			y1=kohdistuspointy[1];
+
+			ox1=1*fields[0];
+			oy1=-1*fields[1];
+				
+			fields=(''+kohdistuspoint[0]).split(',');
+			x2=kohdistuspointx[0];
+			y2=kohdistuspointy[0];
+
+			ox2=1*fields[0];
+			oy2=-1*fields[1];
+			dx=x1-ox1;
+			dy=y1-oy1;
+		}
+		pit1=Math.sqrt((ox1-ox2)*(ox1-ox2)+(oy1-oy2)*(oy1-oy2));
+		pit2=Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+
+		gk1=0;
+		gk2=0;
+		gk3=0;
+
+
+           if (x2==x1){
+
+              if (y2>y1){
+                 gk1=pi/2;
+              }else{
+                 gk1=-pi/2;
+				 }
+
+           }else{
+
+
+              if (x2<x1){
+                 gk1=Math.atan((y2-y1)/(x2-x1))+pi;
+               
+              }else{
+                gk1=Math.atan((y2-y1)/(x2-x1));
+                 }
+		    }
+			
+           if (ox2==ox1){
+
+              if (oy2>oy1){
+                 gk2=pi/2;
+              }else{
+                 gk2=-pi/2;
+				 }
+
+           }else{
+
+              if (ox2<ox1){
+                 gk2=Math.atan((oy2-oy1)/(ox2-ox1))+pi;
+               
+              }else{
+                gk2=Math.atan((oy2-oy1)/(ox2-ox1));
+                 }
+		    }
+
+		   
+
+			
+				
+				
+				
+				// --------------------------------------------
+				}
+				
+				$.each(kohdistusdata, function(){
+			
+				$.each(this, function(key, val) {
+
+				    var fields=(''+val).split(',');
+					//var circle = L.circle(map.unproject([1*fields[0], -1*fields[1]], 20), 1.8, {color: '#aa00aa',    fill: false,weight: 4});
+var circle;
+
+
+	redflag=false;
+	for(j=0;j<kohdistusp.length;j++){
+	if(kohdistusp[j] == key){
+	redflag=true;
+	}
+	}
+	// location
+	if(kohdistusp.length>1){
+	
+	var ox3=1*fields[0];
+	var oy3=-1*fields[1];
+		
+	pit3=Math.sqrt((ox1-ox3)*(ox1-ox3)+(oy1-oy3)*(oy1-oy3))
+	           if (ox3==ox1){
+
+              if (oy3>oy1){
+                 gk3=pi/2;
+              }else{
+                 gk3=-pi/2;
+				 }
+
+           }else{
+
+              if (ox3<ox1){
+                 gk3=Math.atan((oy3-oy1)/(ox3-ox1))+pi;
+               
+              }else{
+                gk3=Math.atan((oy3-oy1)/(ox3-ox1));
+                 }
+		    }
+	
+x=(1*x1 +(Math.cos(gk3-gk2+gk1)*pit3*pit2/pit1));
+y=(1*y1 +(Math.sin(gk3-gk2+gk1)*pit3*pit2/pit1));
+           //apuX=(bx1+(Math.cos(gk1+gk2-gk3)*pit3*pit2/pit1))
+           //apuY=(by1+(Math.sin(gk1+gk2-gk3)*pit3*pit2/pit1))
+//alert(''+gk2+' '+pit2+' '+pit1);
+}else{
+x=(1*fields[0]-1*dx);
+y=(-1*fields[1]+1*dy);
+}
+	
+	if(redflag){
+		circle =L.marker(	map.unproject([x, y], 20), {className: 'c'+key, icon: redicon, draggable: true,zIndexOffset:2000});
+	}else{
+	if(kohdistusp.length<2){
+		circle =L.marker(	map.unproject([x, y], 20), {className: 'c'+key, icon: gpsicon, draggable: true,zIndexOffset:2000});
+		}else{
+		circle =L.marker(	map.unproject([x, y], 20), {className: 'c'+key, icon: gpsicon, draggable: false,zIndexOffset:2000});
+		}
+	}
+
+	
+	circle.on('dragend', function(e) {
+updatecontrols(e,key);
+});
+coursegroup.addLayer(circle);
+//	circle.on('drag', function(e) {
+//updatecontrols(e,key);
+//});
+		});
+	});
+}
+
+var	kohdistusdata=undefined;
+function savecalibration(){
+	if(kohdistuspoint.length > 1){
+		fields=(''+kohdistuspoint[0]).split(',');
+		x1=kohdistuspointx[0];
+		y1=kohdistuspointy[0];
+		ox1=1*fields[0];
+		oy1=-1*fields[1];
+				
+		fields=(''+kohdistuspoint[1]).split(',');
+		x2=kohdistuspointx[1];
+		y2=kohdistuspointy[1];
+
+		ox2=1*fields[0];
+		oy2=-1*fields[1];
+				
+    	var url = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+		url=url+'/manager/reittimanager.#ext#?act=tallennasovitus&eventid='+eventid+'&keksi='+GetUrlValue('keksi')+'&eventtype='+GetUrlValue('eventtype')+'&calibration='+x1+','+y1+','+x2+','+y2+','+ox1+','+oy1+','+ox2+','+oy2;
+
+    	window.location=url;
+	}else{
+		alert('Calibration is not finished yet.');
+	}
+}
+
+function loadkohdistus(){
+	$("#d1").css("visibility","hidden");
+	$("#d2").css("visibility","hidden");
+
+	$("#d4").html('Calibrate controls by dragging two points.<br>Save with save button:&nbsp;&nbsp;&nbsp;<button class="buttoni" id="undobutton" style="height: 16px; width: 61px;" type="button"  onClick="savecalibration();">Save</button>');
+	$("#valiaikadiv").css("visibility","hidden");
+	$("#valiajat").css("visibility","hidden");
+	$("#sarja").css("visibility","hidden");
+	$("#kilp").css("visibility","hidden");
+	$("#d3").css("visibility","hidden");
+	//$("#d4").css("visibility","hidden");
+
+	$.getJSON("reitti.#ext#?act=jskohdistus&eventid="+eventid, function(data) {
+		kohdistusdata=data;
+		coursegroup.clearLayers();
+		$.each(data, function(){ $.each(this, function(k, v) {
+			var fields=(''+v).split(',');
+			//var circle = L.circle(map.unproject([1*fields[0], -1*fields[1]], 20), 1.8, {color: '#aa00aa',    fill: false,weight: 4});
+			var circle =L.marker(	map.unproject([1*fields[0], -1*fields[1]], 20), {className: 'c0', icon: gpsicon, draggable: true,zIndexOffset:2000});
+			circle.on('dragend', function(e) {
+				updatecontrols(e,k);
+			});
+			//circle.on('drag', function(e) {
+			//updatecontrols(e,k);
+			//});
+			coursegroup.addLayer(circle);
+		}); });
+	});
+}
+	
+if(GetUrlValue('kohdistus') == 1){
+	loadkohdistus();
+}
+// gpstracking
+	
+var latest=0;
+if(eventid==0){
+	var GPST= [];
+	var GPSX = []; 
+	var GPSY = []; 
+	var GPSTXT = []; 
+	var animtime=0;
+	var animstarttime=0;
+	myi=[];
+	for(i=0;i<50;i++){
+		GPST[i] = [];
+		GPSX[i] = [];
+		GPSY[i] = [];
+		GPSTXT[i] = [];
+		myi[i]=0;
+	}
+	var mylegend=[];
+	 
+	if(eventid==0){
+		hideright=false;
+		hiderighttoggle();
+		$("#hiderbutton").css("visibility", "hidden");
+
+		$.getJSON("reitti.#ext#?act=jsGPS", function(data) {
+				$.each(data, function(){
+				$.each(this, function(k, v) {
+				var tmp =(''+v).split(';');
+				if(tmp.length >2){
+				for (i = 0; i < tmp.length; i++) {
+				var temp=tmp[i].split(',');
+				
+				GPST[1*temp[1]][GPST[1*temp[1]].length]=temp[0]*1;
+				GPSX[1*temp[1]][GPSX[1*temp[1]].length]=temp[2]*1;
+				GPSY[1*temp[1]][GPSY[1*temp[1]].length]=temp[3]*1;
+				GPSTXT[1*temp[1]][GPSTXT[1*temp[1]].length]=temp[4];
+				if(animtime <temp[0]*1-65){animtime=temp[0]*1-65;}
+			//alert(''+(1*temp[1])+' '+(GPST[1*temp[1]].length));
+			   mylegend[1*temp[1]]=temp[4]
+
+				}
+				}
+				}
+		);}
+	);
+	d=new Date();animstarttime=d.getTime()/1000;
+	
+	setTimeout('gpsanim()',1000);
+	setTimeout('gpsreload()',1000);
+
+		var legendHTML='';
+	for(i=0;i<50;i++){
+	if(typeof mylegend[i] != 'undefined'){
+	var rname=mylegend[i];
+	if(mylegend[i].indexOf(" ") != -1){  rname= mylegend[i].substring(0,mylegend[i].lastIndexOf(" "));}
+
+legendHTML=legendHTML+'<tr><td><div style=\"background:'+linecolor[i%20]+'; width: 10px; height: 10px;border-radius: 50%;\"></div></td><td><i onMouseOut=\"hilitedot=-1\" onMouseover=\"hilitedot='+i+'\">'+ rname+'</i></td></tr>';
+}
+}
+
+legend.update('<table>'+legendHTML+'</table><br><label><input name="tails" id="tails" onClick="toggletails();" type="checkbox" checked>Tails</label><br><label><input name="dimmap" id="dimmap" onClick="dimmap();" type="checkbox" checked>#term_48#</label>');
+				
+	});
+	
+	
+	}
+	}
+
+var drawtails = 1;
+function toggletails(){
+	drawtails = $("#tails").is(':checked') ? 1 : 0;
+}
+	
+function gpstrakingpoly(t,nowpoint,lastx,lasty){
+	var latlons=[];
+	var prepointt=0;
+	var prepoint;
+	for(var i=0;i<nowpoint;i++){
+		if(prepointt >0 && prepointt +9 < GPST[t][i]){
+			var trakingpoly = new L.polyline(latlons, {color: linecolor[t%20], weight: 3, opacity: 0.8});
+			tailgroup.addLayer(trakingpoly);
+			latlons=[];
+			latlons[latlons.length]=map.unproject(prepoint,20);
+			latlons[latlons.length]=map.unproject([GPSX[t][i], -GPSY[t][i]],20);
+			var trakingpoly = new L.polyline(latlons, {color: linecolor[t%20], weight: 1, opacity: 0.8});
+			tailgroup.addLayer(trakingpoly);
+			latlons=[];
+		}
+		prepointt=GPST[t][i];
+		prepoint=[GPSX[t][i], -GPSY[t][i]];
+
+		if(!isNaN(GPSX[t][i])){
+			latlons[latlons.length]=map.unproject([GPSX[t][i], -GPSY[t][i]],20);
+		}
+	}
+	if(lastx != -9999 && lasty != -9999 ){
+		if(!isNaN(lastx)){
+			latlons[latlons.length]=map.unproject([lastx,-lasty],20);
+		}
+	}
+	if(latlons.length >0){
+		var trakingpoly = new L.polyline(latlons, {color: linecolor[t%20], weight: 3, opacity: 0.8});
+		tailgroup.addLayer(trakingpoly);
+	}
+}
+	
+function gpsanim(){
+	try{
+		var d=new Date();nowtime=d.getTime()/1000;
+		var aika=animtime -animstarttime+nowtime;
+		//alert(''+aika+' '+nowtime);
+		animgroup.clearLayers();
+		tailgroup.clearLayers();
+		for(var j=0;j<50;j++){
+		var myx=-9999;
+		var myy=-9999;
+		var done=0;
+		while(done ==0){
+		if(typeof myi[j] != 'undefined' && typeof GPST[j][myi[j]] != 'undefined'){
+		//alert(''+j +' '+myi[j]+' XXX '+GPST[j][myi[j]] +'  '+ aika);
+		  if(GPST[j][myi[j]] > aika){
+		     done=1;
+			 var weight=4;if(hilitedot ==j){weight=7;}
+			 
+			  myx= (GPSX[j][myi[j]]*(aika-GPST[j][myi[j]-1]) + GPSX[j][myi[j]-1]*(GPST[j][myi[j]] -aika))/(GPST[j][myi[j]]-GPST[j][myi[j]-1]);
+			  myy= (GPSY[j][myi[j]]*(aika-GPST[j][myi[j]-1]) + GPSY[j][myi[j]-1]*(GPST[j][myi[j]] -aika))/(GPST[j][myi[j]]-GPST[j][myi[j]-1]);
+			  //var mycircle = L.circleMarker(map.unproject([x, -y], 20), {fillColor: linecolor[animcolorid[1*k]%20], radius: weight, fill: true, fillOpacity: 1.0});
+			 if(isNaN(myx) || isNaN(myy)){
+			 
+			 }else{
+			 var mycircle = L.circleMarker(map.unproject([myx, -myy], 20), { fillColor: linecolor[j%20],  fill: true, radius: weight, opacity: 1.0, fillOpacity: 1.0});
+			 animgroup.addLayer(mycircle);
+//---			 
+			if(drawtails==1){
+             var tail=[];
+			 var taili=myi[j]-1;
+			 tail[tail.length]=map.unproject([myx, -myy],20);
+			 while(taili > 0 && GPST[j][taili]>aika-60){
+			  if(!isNaN(GPSX[j][taili])){
+			 tail[tail.length]=map.unproject([ GPSX[j][taili], -GPSY[j][taili]],20);
+				}
+				taili=taili-1;
+			 }
+
+
+if(tail.length >0){
+var tailpoly = new L.polyline(tail, {color: linecolor[j%20], weight: 3, opacity: 0.7});
+tailgroup.addLayer(tailpoly); 
+}
+}
+//--
+			 }
+			
+			
+			
+		}else{
+			myi[j]++;
+			}
+		}else{
+		done=1;
+		}
+	
+	}
+	if(hilitedot==j) gpstrakingpoly(j,myi[j],myx,myy);
+	}
+	animgroup.bringToFront();
+	}finally{
+	setTimeout('gpsanim()',250);
+	}
+	}
+	function gpsreload(){
+	
+		setTimeout('gpsreload()',20000);
+
+	
+	$.getJSON("reitti.#ext#?act=jsGPSLAST", function(data) {
+                var latestchanged=false;
+				var d=new Date();nowtime=d.getTime()/1000;
+				$.each(data, function(){
+				$.each(this, function(k, v) {
+				var tmp =(''+v).split(';');
+				if(tmp.length >2){
+				for (i = 0; i < tmp.length; i++) {
+				var temp=tmp[i].split(',');
+				
+			if (GPST[1*temp[1]].length < 1 || GPST[1*temp[1]][GPST[1*temp[1]].length-1]<temp[0]*1) {
+			
+				GPST[1*temp[1]][GPST[1*temp[1]].length]=temp[0]*1;
+				GPSX[1*temp[1]][GPSX[1*temp[1]].length]=temp[2]*1;
+				GPSY[1*temp[1]][GPSY[1*temp[1]].length]=temp[3]*1;
+				GPSTXT[1*temp[1]][GPSTXT[1*temp[1]].length]=temp[4];
+				if(latest < temp[0]*1){latest=temp[0]*1;latestchanged=true;}
+			 mylegend[1*temp[1]]=temp[4]
+				}
+				}
+				}
+				}
+		);}
+	);
+	//alert(''+animtime+' '+animstarttime+' '+nowtime+' '+latest);
+	if(latestchanged && (animtime -animstarttime+nowtime<latest-200 || animtime -animstarttime+nowtime > latest +75 )){animtime=latest-65;animstarttime=nowtime;}
+	});
+	
+	var legendHTML='';
+	for(i=0;i<50;i++){
+		if(typeof mylegend[i] != 'undefined'){
+			var rname=mylegend[i];
+			if(mylegend[i].indexOf(" ") != -1){  rname= mylegend[i].substring(0,mylegend[i].lastIndexOf(" "));}
+
+			legendHTML=legendHTML+'<tr><td><div style=\"background:'+linecolor[i%20]+'; width: 10px; height: 10px;border-radius: 50%;\"></div></td><td><i onMouseOut=\"hilitedot=-1\" onMouseover=\"hilitedot='+i+'\">'+ rname+'</i></td></tr>';
+		}
+	}
+	var dimming=$( "#dimmap" ).is(':checked');
+	legend.update('<table>'+legendHTML+'</table><br><label><input name="tails" id="tails" onClick="toggletails();" type="checkbox" />Tails</label><br><label><input name="dimmap" id="dimmap" onClick="dimmap();" type="checkbox"/>#term_48#</label>');
+	if(drawtails==1){
+		$("#tails").prop('checked', true);
+	}
+	if(dimming){
+		$("#dimmap").prop('checked', true);
+	}
+}
+// livegps end
+
+function loadcourse(sarja){
+	if(null == sarja){
+		sarja = $("#sarja").val();
+	}
+	$.getJSON("reitti.#ext#?act=jsradat&eventid="+eventid+"&sarja="+sarja, function(data) {
+		coursegroup.clearLayers();
+		$.each(data, function(){
+			$.each(this, function(k, v) {
+			var tmp =(''+v).split('N');
+			var startIndex = tmp.length - 4; //последняя пустая строка, перед этим 3 линии старта
+
+			for (var i = 0; i < tmp.length; i++) {
+				if (tmp[i].length > 2){
+					var fields=tmp[i].split(';');
+					//circle
+					if(fields[0] == 1){
+						coursegroup.addLayer(L.circle(map.unproject([1*fields[1], -1*fields[2]], 20), 1.8, {color:'#aa00aa', fill:false, weight:4}));
+					//doubleCircle
+					} else if(fields[0] == 2){
+						coursegroup.addLayer(L.circle(map.unproject([1*fields[1], -1*fields[2]], 20), 2, {color:'#aa00aa', fill:false, weight:4}));
+						coursegroup.addLayer(L.circle(map.unproject([1*fields[1], -1*fields[2]], 20), 1.4, {color:'#aa00aa', fill:false, weight:4}));
+					//line
+					} else if(fields[0] == 4){
+						if (i >= startIndex || (!isEventChoice && sarja != '99999')) {
+							coursegroup.addLayer(L.polyline([map.unproject([1 * fields[1], -1 * fields[2]], 20), map.unproject([1 * fields[3], -1 * fields[4]], 20)], { color:'#aa00aa', weight:4 }));
+						}
+					//controlNumber
+					} else if (fields[0] == 3 && sarja != '99999') {
+						var myIcon = L.divIcon({className:'contrnro', html:fields[3], iconSize:new L.Point(20,20), iconAnchor:new L.Point(10,10)});
+						coursegroup.addLayer(L.marker(map.unproject([1*fields[1]+10, -1*fields[2]-12], 20), {icon:myIcon}));
+					}
+				}
+			}
+
+			//var polyline = L.polyline(tmp2);
+			//polyline.addLatLng(map.unproject([3, 3], 20));
+			//polyline.addLatLng(map.unproject([500, 500], 20));
+
+			});
+		});
+	});
+}
+
+function unselect(){
+	$("#kilp").val([]);
+
+
+    $("#kilp option").each(function(i){
+        $(this).removeClass("myselection")
+    });
+
+	}
+	var animstep=1;
+	var hilitedot = 0;
+	var maxtime=0;
+	var animatebg=true;
+	var preanilooptime=0;	
+	function animatedots(){
+	try{
+	
+
+	if(animpaused == 0){
+	animtime=animtime+1*animstep;
+	animgroup.clearLayers();
+tailgroup.clearLayers();
+   var temparr=[];
+   var viewdone=0;
+	for(k in animaatio){
+	temparr[temparr.length]=k;
+	}
+	temparr.reverse();
+	var k;
+	for ( w= 0; w < temparr.length; ++w) {
+	
+	k=temparr[w];
+     var row=animaatio[k];
+
+	 var st=0;
+	 if(animtype==-1){
+	 st=60*starttime[k];
+	 }
+	 if(animtype>0){ // start from control x
+	 st=-1*animsplit[k+'_'+animtype];
+	 }
+	// slider
+	
+	// $( "#aminslider" ).slider( "value", 0 );
+	// $("#aminslider").css("visibility", "visible");
+	if(maxtime < st+3*row.length){
+	maxtime=st+3*row.length;
+	$("#animslider").slider("option", "max", maxtime);
+	}
+
+	// slider end
+	 
+	if(animtime > st && st/3 +row.length > animtime/3+3){
+	var at=animtime-st;
+    var temp1=row[Math.floor(at/3)]; 
+    var temp2=row[Math.floor(at/3)+1]; 
+	
+	if(temp1 != 'C' && temp2 !='C'){
+	var pair=temp1.split(',');
+	var pair2=pair[0].split(';');
+	var pairb=temp2.split(',');
+	var pair2b=pairb[0].split(';');
+	var x =(1*pair2[0]*(Math.floor(at/3)+1-at/3) +1*pair2b[0]*(at/3-Math.floor(at/3)));
+	var y =(1*pair2[1]*(Math.floor(at/3)+1-at/3) +1*pair2b[1]*(at/3-Math.floor(at/3)));
+	var weight=5;if(k ==hilitedot){weight=8;}
+    var mycircle = L.circleMarker(map.unproject([x, -y], 20), {fillColor: linecolor[animcolorid[1*k]%20], radius: weight, fill: true, fillOpacity: 1.0});
+			animgroup.addLayer(mycircle);
+			}
+			if(viewdone == 0){
+			if(follow && (focusrunner==0 || k==focusrunner)){
+			
+			if(preanilooptime == 0){
+			map.setView(map.unproject([x, -y],20),map.getZoom(),{reset:false,animate:false});
+			}
+			if(animatebg){
+			var d = new Date();
+			if(d.getTime() > preanilooptime+350 && preanilooptime >0){
+			animatebg=false;
+			//alert('debug - slow mobile browser anim mode on');
+			}
+			preanilooptime=d.getTime();
+			}
+			map.setView(map.unproject([x, -y],20),map.getZoom(),{reset:false,animate:animatebg}); // animate:false
+			
+			viewdone=1;
+			}
+			}
+			
+			// tail
+			drawtails=1;
+			if(drawtails==1){
+             var tail=[];
+			 var taili=Math.floor(at/3);
+			 tail[tail.length]=map.unproject([x, -y],20);
+			 while(taili > 0 && taili>at/3-20){
+			 if(temp1 != 'C'){
+			 temp1=row[taili];
+			 pair=temp1.split(',');
+	         pair2=pair[0].split(';');
+			 if(!isNaN(pair2[0])){
+			 tail[tail.length]=map.unproject([pair2[0], -pair2[1]],20);
+				}
+				taili=taili-1;
+			 }
+
+				}
+
+			if(tail.length >0){
+				var tailpoly = new L.polyline(tail, {color: linecolor[animcolorid[1*k]%20], weight: 3, opacity: 0.7});
+				tailgroup.addLayer(tailpoly); 
+				}
+			}
+			// tail end
+			
+		}
+	};
+	}
+		if(animtime < maxtime && Math.abs(animtime -$( "#animslider" ).slider( "option", "value" )) < 5){
+	$( "#animslider" ).slider( "option", "value", animtime);
+	}
+		animgroup.bringToFront();
+	}finally{
+
+	if(follow &&((animtime > startanimend && startanimend >0) || animtime > maxtime-2) ){
+	$("#startanimstart").css("visibility","visible");
+	$("#sharediv").css("visibility","visible");
+	$("#sharediv").css("margin-top","50px");
+	$( "#animslider" ).slider( "option", "value", startanimtime);
+	//pauseanim();
+	stopanim();
+	//animtime=startanimtime;
+
+	}
+	
+		if(animrunning==1){
+			setTimeout(function(){animatedots()},50);
+		}
+	}
+	
+
+	}
+	
+	function startanim(sti){
+	$( "#animslidercontainer" ).css("visibility", "visible");
+	//$("#aminslider").css("clear", "top");
+	//$("#aminslider").css("bottom", 2);
+	
+	maxtime=0;
+	if(animrunning==0){
+		animrunning=1;
+		animtime=0;
+		if(sti>0){animtime=sti;}
+		animatedots();
+		}
+	}
+	function stopanim(){
+		animrunning=0;
+		animtime=0;
+	$( "#animslidercontainer" ).css("visibility", "hidden");
+	}
+	function pauseanim(){
+	if(animpaused==0){
+		animpaused=1;
+		}else{
+		animpaused=0;		
+		}
+
+	}
+	function speedplus(){
+		animstep=animstep*1.3;
+		
+	}
+	function speedminus(){
+		animstep=animstep/1.3;
+	}
+	
+	function showgpsup(){
+  $("#valiaikadiv").css("visibility", "hidden");
+  $("#piirtodiv").css("visibility", "hidden");	
+  $("#gpsdiv").css("visibility", "visible");	
+  $("#d1").css("visibility", "hidden");	  
+    $("#d2").css("visibility", "hidden");	 
+	
+	
+  $("#valiaikadiv").css("visibility", "hidden");
+ 
+  $("#animdiv").css("visibility", "hidden");
+
+ $("#valiaikadiv").css("visibility", "hidden");
+ $("#sarja").css("visibility", "hidden");
+ $("#kilp").css("visibility", "hidden");
+ $("#d4").css("visibility", "hidden");
+ $("#themediv").css("visibility", "hidden");
+ stopanim();
+ 
+if(eventtype==2){
+    $("#kilpailijagps").css("visibility", "hidden");
+    $("#calibtype").css("visibility", "hidden");	
+	
+	
+}
+  }
+	
+	function piirto(){
+	legend.update('');
+		if($( "#piirracheckbox" ).is(':checked')){
+		if(ratapisteet.length > 0){
+var pair1=ratapisteet[drawcontrol-1].split(';');
+var pair2=ratapisteet[drawcontrol].split(';');
+drawleg = L.polyline([
+						map.unproject([1*pair1[0], -1*pair1[1]], 20),
+						map.unproject([1*pair2[0], -1*pair2[1]], 20)
+						], {color: '#0000ff',weight: 8, opacity: 0.25});
+						
+						map.addLayer(drawleg);
+			drawcircle = L.circle(map.unproject([1*pair2[0], -1*pair2[1]], 20), 2.1, {color: '#0000ff',    fill: false,weight: 16, opacity: 0.25});
+			map.addLayer(drawcircle);
+		}
+		
+  $("#valiaikadiv").css("visibility", "hidden");
+  $("#piirtodiv").css("visibility", "visible");
+   $("#gpsdiv").css("visibility", "hidden");
+
+ if(touchmode==1){
+ $("#undobutton").css({"position": "absolute"}).appendTo('body');
+ $("#undobutton").css("visibility", "visible");
+ $("#undobutton").css("width", "70px");
+  $("#undobutton").css("height", "45px");
+  $("#undobutton").css("left", "70px");
+
+ $("#plus3button").css({"position": "absolute"}).appendTo('body');
+ $("#plus3button").css("visibility", "visible");
+ $("#plus3button").css("width", "70px");
+  $("#plus3button").css("height", "45px");
+  $("#plus3button").css("left", "143px");
+  
+} 
+  $("#animdiv").css("visibility", "hidden");
+ $("#gpsdiv").css("visibility", "hidden");
+ $("#valiaikadiv").css("visibility", "hidden");
+ $("#sarja").css("visibility", "hidden");
+ $("#kilp").css("visibility", "hidden");
+ $("#d4").css("visibility", "hidden");
+ $("#themediv").css("visibility", "hidden");
+  $("#rgheader").css("visibility", "hidden");
+ stopanim();
+		}else{
+
+ if(touchmode==1){
+
+ $("#undobutton").css("visibility", "hidden");
+  $("#plus3button").css("visibility", "hidden");
+
+} 
+
+  $("#valiaikadiv").css("visibility", "visible");
+  $("#piirtodiv").css("visibility", "hidden");
+
+		$("#valiaikadiv").css("visibility", "visible");
+		$("#sarja").css("visibility", "visible");
+		$("#kilp").css("visibility", "visible");
+		$("#d4").css("visibility", "visible");
+		$("#themediv").css("visibility", "visible");
+		$("#rgheader").css("visibility", "visible");
+  
+		if(map.hasLayer(drawleg)){map.removeLayer(drawleg);}
+		if(map.hasLayer(drawcircle)){map.removeLayer(drawcircle);}
+	}
+}
+
+function GetUrlValue(VarSearch){
+    var SearchString = window.location.search.substring(1);
+    var VariableArray = SearchString.split('&');
+    for(var i = 0; i < VariableArray.length; i++){
+        var KeyValuePair = VariableArray[i].split('=');
+        if(KeyValuePair[0] == VarSearch){
+            return KeyValuePair[1];
+        }
+    }
+}
+if(GPSMODE ==0 && GPSDATA !=''){
+	$("#goffset").slider( "value", 0 );
+	$("#valiaikadiv").css("visibility", "hidden");
+	$("#piirtodiv").css("visibility", "hidden");
+	$("#d1").css("visibility", "hidden");
+	$("#d2").css("visibility", "hidden");
+}
+if(GPSMODE ==1 && GPSDATA !='' && eventtype==2){
+	var html='<p style="text-align:right;">Your name:<br><input class=\"manualsplit\" style=\"height:12px; width:65px;\" id=\"suunnistaja\" name=\"suunnistaja\"><br><br>';
+	legend.update(html+"</p>");
+	$( "#goffset" ).css( "visibility", "hidden" );
+	$("#valiaikadiv").css("visibility", "hidden");
+	$("#piirtodiv").css("visibility", "hidden");
+	$("#d1").css("visibility", "hidden");
+	$("#d2").css("visibility", "hidden");
+}
+
+if (GPSDATA != '') {
+	$("#animdiv").css("visibility", "hidden");
+	$("#sarja").css("visibility", "hidden");
+	$("#kilp").css("visibility", "hidden");
+	$("#d4").css("visibility", "hidden");
+	$("#themediv").css("visibility", "hidden");
+}
+//$( "#dimmap" ).prop('checked', true);
+//  dimmap();
+//if(GetUrlValue('dim') == '0'){
+//  $( "#dimmap" ).prop('checked', false);
+//dimmap();
+//}
+
+function getTarget(evt){
+	evt = evt || window.event; // get window.event if argument is false (in IE)
+	return evt.target || evt.srcElement;
+}
+</script>
+<div id="athletetooltip" style="position:absolute;left:-99;top:-99;"></div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<head>
+<title>##nimi## - reitit</title>
+<STYLE>
+body{font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; font-size: 11px; }
+td{font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; font-size: 11px; }
+th{font-family: Verdana, Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 13px; }
+.{ font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; font-size: 11px; }
+H3{ font-family: Verdana, Arial, Helvetica, sans-serif; color: #005578; font-size: 12px; font-weight: bold; }
+a{font-family: Verdana, Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 10px; }
+.credits{font-family: Verdana, Arial, Helvetica, sans-serif; color: #005578; font-size: 8px; font-weight : bold; }
+</STYLE>
+<script language=javascript>
+if(document.URL.indexOf('kieli=')<0){document.location=document.URL+"&kieli=";}
+
+</script>
+<link rel="shortcut icon" href="##icon##">
+</head>
+<BODY BGCOLOR="A0A0A0"  marginheight="4" topmargin="4">
+<center>
+<table border="0" cellpadding="0" cellspacing="0"  height="1%" width="100%" bgcolor="#E8E8F0">
+<tr><th colspan=3 bgcolor="#005578" align=left valign=bottom><a href='http://www.routegadget.net/' target=_blank><img src=##logo## height=19 width=200 border=0 title='www.routegadget.net'></a>&nbsp;&nbsp;&nbsp;##nimi## </th></tr>
+<tr><th colspan=3 bgcolor="#005578"  align=right>
+&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;##languages##&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=reitti.##extension##?act=help&kieli=##kieli## target=_blank>Help</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</th></tr></table>
+<applet code=reitti.class codebase="##httppath##" width="100%" height="94%" archive="reitti.jar" alt="Java is disabled or missing">
+<param name=kieli value="##kieli##">
+<param name=extension value="##extension##">
+<param name=dotsize value="10">
+<param name=livedelay value="52">
+<param name=liveloadinterval value="19">
+<param name=en_1 value="Choose class/course">
+<param name=en_2 value="Choose your name">
+<param name=en_3 value="Type your comment">
+<param name=en_4 value="Draw your route">
+<param name=en_5 value="Undo">
+<param name=en_6 value="Choose competitors (max 10)">
+<param name=en_7 value="Routes">
+<param name=en_8 value="Course">
+<param name=en_9 value="Names">
+<param name=en_10 value="on/off">
+<param name=en_11 value="Zoom">
+<param name=en_12 value="View animation">
+<param name=en_13 value="View routes">
+<param name=en_14 value="View comments">
+<param name=en_15 value="Deselect all">
+<param name=en_16 value="Starting times">
+<param name=en_17 value="Start">
+<param name=en_18 value="Stop">
+<param name=en_41 value="Pause">
+<param name=en_19 value="Speed +">
+<param name=en_20 value="Speed -">
+<param name=en_21 value="You can not save now. Make sure you have chosen your name">
+<param name=en_22 value="from the name list, you have visited all the controls">
+<param name=en_23 value="and you have entered your finish time if it is asked.">
+<param name=en_24 value="Use the 'undo'-button to undo the last point if necessary.">
+<param name=en_25 value="Fit">
+<param name=en_26 value="Save">
+<param name=en_27 value="Done">
+<param name=en_28 value="Apply start times for the competitors. The unit is minutes.">
+<param name=en_29 value="DONE!!!  YOU MAY NOW SAVE YOUR ROUTE.">
+<param name=en_30 value="Loading routes - please wait">
+<param name=en_31 value="Loading animation - please wait">
+<param name=en_32 value="Loading - please wait">
+<param name=en_33 value="Save route">
+<param name=en_34 value="All classes">
+<param name=en_35 value="Mass start">
+<param name=en_36 value="Photos">
+<param name=en_37 value="Snap on/off">
+<param name=en_38 value="Smooth">
+<param name=en_39 value="scaling">
+<param name=en_40 value="Your name">
+
+<param name=ru_1 value="Выберите группу/дистанцию">
+<param name=ru_2 value="Выберите Ваше имя">
+<param name=ru_3 value="Введите Ваш коментарий">
+<param name=ru_4 value="Нарисуйте Ваш путь">
+<param name=ru_5 value="Отмена">
+<param name=ru_6 value="Выберите участников (максимум 10)">
+<param name=ru_7 value="Пути">
+<param name=ru_8 value="Дистанции">
+<param name=ru_9 value="Имена">
+<param name=ru_10 value="вкл/вык">
+<param name=ru_11 value="Масштаб">
+<param name=ru_12 value="Показать анимацию">
+<param name=ru_13 value="Показать пути">
+<param name=ru_14 value="Показать комментирии">
+<param name=ru_15 value="Отменить выбор">
+<param name=ru_16 value="Время старта">
+<param name=ru_17 value="Старт">
+<param name=ru_18 value="Стоп">
+<param name=ru_41 value="Пауза">
+<param name=ru_19 value="Скорость +">
+<param name=ru_20 value="Скорость -">
+<param name=ru_21 value="Вы не можете сохранится сейчас. Убедитесь что Вы правильно выбрали">
+<param name=ru_22 value="Выше имя в списке имен, что указали время посещения всех КП">
+<param name=ru_23 value="и ввели время финиша если Вас об этом спросила система.">
+<param name=ru_24 value="Используйте кнопку 'Отмена' - если Вы хотите очистить последний отрезок.">
+<param name=ru_25 value="Подобрать">
+<param name=ru_26 value="Сохранить">
+<param name=ru_27 value="Завершить">
+<param name=ru_28 value="Указать стартовое время участникам (в минутах).">
+<param name=ru_29 value="ГОТОВО!!! СЕЙЧАС ВЫ МОЖЕТЕ СОХРАНИТЬ СВОЙ ПУТЬ.">
+<param name=ru_30 value="Загрузка путей - пожалуйста подождите">
+<param name=ru_31 value="Загрузка анимации - пожалуйста подождите">
+<param name=ru_32 value="Загрузка - пожалуйста подождите">
+<param name=ru_33 value="Сохранить путь">
+<param name=ru_34 value="Все дистанции">
+<param name=ru_35 value="Общий старт">
+<param name=ru_36 value="Фотографии">
+<param name=ru_37 value="Обрыв вкл/вык">
+<param name=ru_38 value="Сглаж.">
+<param name=ru_39 value="масш.">
+<param name=ru_40 value="Ваше имя">
+
+<param name="ratavari" value="220,0,220">
+<param name="tvari" value="232,232,240">
+<param name="vvari" value="0,85,120">
+<param name="pvari" value="0,0,255">
+<param name="hvari" value="255,0,0">  
+<param name="smoothscaling" value="no">
+<param name="karttaid" value="##karttaid##">
+<param name="id" value="##id##">
+<param name="ratapiirto" value="##ratapiirto##">
+##muu##
+<p><center>If you see this, you need to install Java VM <br>
+Go to  <a href="http://www.java.com/en/download/download_the_latest.jsp">www.java.com</a>
+</center></applet></body>
+</html>

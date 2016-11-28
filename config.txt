@@ -1,0 +1,11 @@
+1) настройка nging + perl
+http://nginxlibrary.com/perl-fastcgi/
+
+2) мануал по gadget
+http://www.routegadget.co.uk/documents/rg-installation-and-user-guide-mar07.pdf
+
+3) описание формата SplitsBrowser CSV
+http://www.splitsbrowser.org.uk/formathelp/csv.shtml
+
+*) преобразование garmin tif в формат gpx (пока не пробовал)
+TCX-C-Experience_2032_Windows
