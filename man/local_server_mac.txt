@@ -1,0 +1,17 @@
+http://osxh.ru/content/apache_mac_os_x_10_8
+http://www.cgi101.com/book/connect/mac.html
+
+sudo apachectl start
+
+
+Чтобы зафорсить запуск апача в 10.11
+Открыть /etc/apache2/extra/httpd-mpm.conf
+Там удалить блок
+#
+# The accept serialization lock file MUST BE STORED ON A LOCAL DISK.
+#
+<IfModule !mpm_winnt_module>
+<IfModule !mpm_netware_module>
+  LockFile "/private/var/log/apache2/accept.lock"
+</IfModule>
+</IfModule>
